@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csy.module.wx.dao.BQjMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.csy.module.wx.entity.BQjMenu" >
+    <id column="XH" property="xh" jdbcType="VARCHAR" />
+    <result column="FJD" property="fjd" jdbcType="VARCHAR" />
+    <result column="JDYWM" property="jdywm" jdbcType="VARCHAR" />
+    <result column="JDZWM" property="jdzwm" jdbcType="VARCHAR" />
+    <result column="JDZWMQC" property="jdzwmqc" jdbcType="VARCHAR" />
+    <result column="JDJB" property="jdjb" jdbcType="INTEGER" />
+    <result column="SFXS" property="sfxs" jdbcType="INTEGER" />
+    <result column="SFXTSY" property="sfxtsy" jdbcType="INTEGER" />
+    <result column="SFMKSY" property="sfmksy" jdbcType="INTEGER" />
+    <result column="XSSX" property="xssx" jdbcType="INTEGER" />
+    <result column="YLZD1" property="ylzd1" jdbcType="VARCHAR" />
+    <result column="YLZD2" property="ylzd2" jdbcType="VARCHAR" />
+    <result column="YLZD3" property="ylzd3" jdbcType="VARCHAR" />
+    <result column="SFTC" property="sftc" jdbcType="INTEGER" />
+    <result column="LJYMMC" property="ljymmc" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    XH, FJD, JDYWM, JDZWM, JDZWMQC, JDJB, SFXS, SFXTSY, SFMKSY, XSSX, YLZD1, YLZD2, YLZD3, 
+    SFTC, LJYMMC
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BQjMenuExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from b_qj_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_qj_menu
+    where XH = #{xh,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_qj_menu
+    where XH = #{xh,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.csy.module.wx.entity.BQjMenuExample" >
+    delete from b_qj_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.csy.module.wx.entity.BQjMenu" >
+    insert into b_qj_menu (XH, FJD, JDYWM, 
+      JDZWM, JDZWMQC, JDJB, 
+      SFXS, SFXTSY, SFMKSY, 
+      XSSX, YLZD1, YLZD2, 
+      YLZD3, SFTC, LJYMMC
+      )
+    values (#{xh,jdbcType=VARCHAR}, #{fjd,jdbcType=VARCHAR}, #{jdywm,jdbcType=VARCHAR}, 
+      #{jdzwm,jdbcType=VARCHAR}, #{jdzwmqc,jdbcType=VARCHAR}, #{jdjb,jdbcType=INTEGER}, 
+      #{sfxs,jdbcType=INTEGER}, #{sfxtsy,jdbcType=INTEGER}, #{sfmksy,jdbcType=INTEGER}, 
+      #{xssx,jdbcType=INTEGER}, #{ylzd1,jdbcType=VARCHAR}, #{ylzd2,jdbcType=VARCHAR}, 
+      #{ylzd3,jdbcType=VARCHAR}, #{sftc,jdbcType=INTEGER}, #{ljymmc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.csy.module.wx.entity.BQjMenu" >
+    insert into b_qj_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="xh != null" >
+        XH,
+      </if>
+      <if test="fjd != null" >
+        FJD,
+      </if>
+      <if test="jdywm != null" >
+        JDYWM,
+      </if>
+      <if test="jdzwm != null" >
+        JDZWM,
+      </if>
+      <if test="jdzwmqc != null" >
+        JDZWMQC,
+      </if>
+      <if test="jdjb != null" >
+        JDJB,
+      </if>
+      <if test="sfxs != null" >
+        SFXS,
+      </if>
+      <if test="sfxtsy != null" >
+        SFXTSY,
+      </if>
+      <if test="sfmksy != null" >
+        SFMKSY,
+      </if>
+      <if test="xssx != null" >
+        XSSX,
+      </if>
+      <if test="ylzd1 != null" >
+        YLZD1,
+      </if>
+      <if test="ylzd2 != null" >
+        YLZD2,
+      </if>
+      <if test="ylzd3 != null" >
+        YLZD3,
+      </if>
+      <if test="sftc != null" >
+        SFTC,
+      </if>
+      <if test="ljymmc != null" >
+        LJYMMC,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="xh != null" >
+        #{xh,jdbcType=VARCHAR},
+      </if>
+      <if test="fjd != null" >
+        #{fjd,jdbcType=VARCHAR},
+      </if>
+      <if test="jdywm != null" >
+        #{jdywm,jdbcType=VARCHAR},
+      </if>
+      <if test="jdzwm != null" >
+        #{jdzwm,jdbcType=VARCHAR},
+      </if>
+      <if test="jdzwmqc != null" >
+        #{jdzwmqc,jdbcType=VARCHAR},
+      </if>
+      <if test="jdjb != null" >
+        #{jdjb,jdbcType=INTEGER},
+      </if>
+      <if test="sfxs != null" >
+        #{sfxs,jdbcType=INTEGER},
+      </if>
+      <if test="sfxtsy != null" >
+        #{sfxtsy,jdbcType=INTEGER},
+      </if>
+      <if test="sfmksy != null" >
+        #{sfmksy,jdbcType=INTEGER},
+      </if>
+      <if test="xssx != null" >
+        #{xssx,jdbcType=INTEGER},
+      </if>
+      <if test="ylzd1 != null" >
+        #{ylzd1,jdbcType=VARCHAR},
+      </if>
+      <if test="ylzd2 != null" >
+        #{ylzd2,jdbcType=VARCHAR},
+      </if>
+      <if test="ylzd3 != null" >
+        #{ylzd3,jdbcType=VARCHAR},
+      </if>
+      <if test="sftc != null" >
+        #{sftc,jdbcType=INTEGER},
+      </if>
+      <if test="ljymmc != null" >
+        #{ljymmc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.csy.module.wx.entity.BQjMenuExample" resultType="java.lang.Integer" >
+    select count(*) from b_qj_menu
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update b_qj_menu
+    <set >
+      <if test="record.xh != null" >
+        XH = #{record.xh,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fjd != null" >
+        FJD = #{record.fjd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdywm != null" >
+        JDYWM = #{record.jdywm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdzwm != null" >
+        JDZWM = #{record.jdzwm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdzwmqc != null" >
+        JDZWMQC = #{record.jdzwmqc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.jdjb != null" >
+        JDJB = #{record.jdjb,jdbcType=INTEGER},
+      </if>
+      <if test="record.sfxs != null" >
+        SFXS = #{record.sfxs,jdbcType=INTEGER},
+      </if>
+      <if test="record.sfxtsy != null" >
+        SFXTSY = #{record.sfxtsy,jdbcType=INTEGER},
+      </if>
+      <if test="record.sfmksy != null" >
+        SFMKSY = #{record.sfmksy,jdbcType=INTEGER},
+      </if>
+      <if test="record.xssx != null" >
+        XSSX = #{record.xssx,jdbcType=INTEGER},
+      </if>
+      <if test="record.ylzd1 != null" >
+        YLZD1 = #{record.ylzd1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ylzd2 != null" >
+        YLZD2 = #{record.ylzd2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ylzd3 != null" >
+        YLZD3 = #{record.ylzd3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sftc != null" >
+        SFTC = #{record.sftc,jdbcType=INTEGER},
+      </if>
+      <if test="record.ljymmc != null" >
+        LJYMMC = #{record.ljymmc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update b_qj_menu
+    set XH = #{record.xh,jdbcType=VARCHAR},
+      FJD = #{record.fjd,jdbcType=VARCHAR},
+      JDYWM = #{record.jdywm,jdbcType=VARCHAR},
+      JDZWM = #{record.jdzwm,jdbcType=VARCHAR},
+      JDZWMQC = #{record.jdzwmqc,jdbcType=VARCHAR},
+      JDJB = #{record.jdjb,jdbcType=INTEGER},
+      SFXS = #{record.sfxs,jdbcType=INTEGER},
+      SFXTSY = #{record.sfxtsy,jdbcType=INTEGER},
+      SFMKSY = #{record.sfmksy,jdbcType=INTEGER},
+      XSSX = #{record.xssx,jdbcType=INTEGER},
+      YLZD1 = #{record.ylzd1,jdbcType=VARCHAR},
+      YLZD2 = #{record.ylzd2,jdbcType=VARCHAR},
+      YLZD3 = #{record.ylzd3,jdbcType=VARCHAR},
+      SFTC = #{record.sftc,jdbcType=INTEGER},
+      LJYMMC = #{record.ljymmc,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csy.module.wx.entity.BQjMenu" >
+    update b_qj_menu
+    <set >
+      <if test="fjd != null" >
+        FJD = #{fjd,jdbcType=VARCHAR},
+      </if>
+      <if test="jdywm != null" >
+        JDYWM = #{jdywm,jdbcType=VARCHAR},
+      </if>
+      <if test="jdzwm != null" >
+        JDZWM = #{jdzwm,jdbcType=VARCHAR},
+      </if>
+      <if test="jdzwmqc != null" >
+        JDZWMQC = #{jdzwmqc,jdbcType=VARCHAR},
+      </if>
+      <if test="jdjb != null" >
+        JDJB = #{jdjb,jdbcType=INTEGER},
+      </if>
+      <if test="sfxs != null" >
+        SFXS = #{sfxs,jdbcType=INTEGER},
+      </if>
+      <if test="sfxtsy != null" >
+        SFXTSY = #{sfxtsy,jdbcType=INTEGER},
+      </if>
+      <if test="sfmksy != null" >
+        SFMKSY = #{sfmksy,jdbcType=INTEGER},
+      </if>
+      <if test="xssx != null" >
+        XSSX = #{xssx,jdbcType=INTEGER},
+      </if>
+      <if test="ylzd1 != null" >
+        YLZD1 = #{ylzd1,jdbcType=VARCHAR},
+      </if>
+      <if test="ylzd2 != null" >
+        YLZD2 = #{ylzd2,jdbcType=VARCHAR},
+      </if>
+      <if test="ylzd3 != null" >
+        YLZD3 = #{ylzd3,jdbcType=VARCHAR},
+      </if>
+      <if test="sftc != null" >
+        SFTC = #{sftc,jdbcType=INTEGER},
+      </if>
+      <if test="ljymmc != null" >
+        LJYMMC = #{ljymmc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where XH = #{xh,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csy.module.wx.entity.BQjMenu" >
+    update b_qj_menu
+    set FJD = #{fjd,jdbcType=VARCHAR},
+      JDYWM = #{jdywm,jdbcType=VARCHAR},
+      JDZWM = #{jdzwm,jdbcType=VARCHAR},
+      JDZWMQC = #{jdzwmqc,jdbcType=VARCHAR},
+      JDJB = #{jdjb,jdbcType=INTEGER},
+      SFXS = #{sfxs,jdbcType=INTEGER},
+      SFXTSY = #{sfxtsy,jdbcType=INTEGER},
+      SFMKSY = #{sfmksy,jdbcType=INTEGER},
+      XSSX = #{xssx,jdbcType=INTEGER},
+      YLZD1 = #{ylzd1,jdbcType=VARCHAR},
+      YLZD2 = #{ylzd2,jdbcType=VARCHAR},
+      YLZD3 = #{ylzd3,jdbcType=VARCHAR},
+      SFTC = #{sftc,jdbcType=INTEGER},
+      LJYMMC = #{ljymmc,jdbcType=VARCHAR}
+    where XH = #{xh,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByMap" resultMap="BaseResultMap" parameterType="Map" >
+    select
+    <include refid="Base_Column_List" />
+    from 
+    B_QJ_MENU a
+    WHERE 1 = 1   
+    <if test="fjd != null">
+		and FJD = #{fjd,jdbcType=VARCHAR}
+	</if>  
+	<if test="jdywm != null">
+		and JDYWM = #{jdywm,jdbcType=VARCHAR}
+	</if>  
+	<if test="jdjb != null">
+		and JDJB = #{jdjb,jdbcType=INTEGER}
+	</if>
+	<if test="sfxs != null">
+		and SFXS = #{sfxs,jdbcType=VARCHAR}
+	</if> 
+	<if test="ylzd2 != null">
+		and YLZD2 = #{ylzd2,jdbcType=VARCHAR}
+	</if> 
+	<if test="ylzd2 == null">
+		and (YLZD2 IS NULL OR YLZD2 = '')
+	</if>
+	order by xssx
+  </select>
+  <!--子系统一级二级菜单数据查询(根据用户和岗位权限过滤)-->
+  <select id="selectSubSystemMenu" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BQjMenu" >
+    select     
+    b.xh,
+    b.fjd,
+    b.jdywm,
+    b.jdzwm,
+    b.jdzwmqc,
+    b.jdjb,
+    b.sfxs,
+    b.sfxtsy,
+    b.sfmksy,
+    b.sftc,
+    b.xssx,
+    b.ljymmc,
+    b.ylzd3
+    from
+    (
+      select * from 
+      B_QJ_MENU a
+      WHERE 1 = 1 
+      <if test="sfxs != null">
+		and a.SFXS = ${sfxs}
+	  </if> 
+	  <if test="fjd != null">
+	  and
+	  (	
+		a.JDYWM=#{fjd,jdbcType=VARCHAR}
+		or
+		a.FJD=#{fjd,jdbcType=VARCHAR}
+		or
+		a.FJD in
+		(
+		   select d.jdywm from B_QJ_MENU d
+			 where d.fjd=#{fjd,jdbcType=VARCHAR}
+		)
+	  )
+	  </if> 
+      order by a.fjd,a.xssx
+    )b
+  </select>
+</mapper>

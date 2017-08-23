@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>欢迎使用快处快赔</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.1/weui.min.css"/>
+		<link rel="stylesheet" href="${springPath}/static/css/weixin/index.css"/>
+        
+	</head>
+	<body ontouchstart>
+		<div class="main">
+			<img class="mainBg" src="${springPath}/static/img/weixin/index_main.png"/>
+			
+			<div class="button-sp-area">
+                <a href="./kckp" class="weui-btn btn1" target="_blank"><span class='content'>新增快处快赔</span></a>
+				<a href="./myRecord" class="weui-btn btn2" target="_blank"><span class='content'>我的报案记录</span></a>
+            </div>
+			<div class="weui-footer">
+                <p class="weui-footer__links">
+					<a href="#" id="button_showIn" class="weui-footer__link">使用需知</a>
+                    <a href="${springPath}/wx/fkyj/index" class="weui-footer__link">意见反馈</a>
+                </p>
+                <p class="weui-footer__text">Copyright @ 2017-2020 ytgsjj.gov.cn</p>
+            </div>
+		</div>
+		
+        <input type="hidden" id="isLogInFistTime" value="${isLogInFistTime}"></input>
+		<div class="dialog initHideen showIn">
+			<div class="ui_mask"></div>
+			<div class="ui_dialog_title">
+				<div class="ui_dialog_title_icon icon_left"></div>
+				<div class="ui_dialog_title_icon icon_right"></div>
+			</div>
+			<div class="ui_dialog">
+				<div class="ui_dialog_hd">
+					<strong class="weui-dialog__title">使用需知</strong>
+				</div>
+				<div class="ui_dialog_bd">
+					<p>
+						依据《山东省高速公路机动车财产损失交通事故快速处理规定》，可快速处理的交通事故应当同时具备以下条件：<br/>
+						（1）仅造成车辆或所载货物的财产损失；<br/>
+						（2）没有人员伤亡或路产损失；<br/>
+						（3）车辆可移动。<br/>
+					</p>
+					<p>
+                        <strong>具有下列情形之一的，不属于快速处理情形，需立即报警：</strong><br/>
+						（1）车辆无有效号牌、无有效校验合格标志、无有效保险标志的；<br/>
+						（2）驾驶人无有效机动车驾驶证的；<br/>
+						（3）车辆不能自行移动的；<br/>
+						（4）驾驶人有饮酒、毒驾嫌疑的；<br/>
+						（5）有一方逃逸的；<br/>
+						（6）碰撞交通设施、公共设施或其他设施的。<br/>
+					</p>
+                    <p>
+						但是，有以上（1）、（5）、（6）项情形的，当事人可以在固定现场证据后，在确保安全的情况下将车辆移至路边等不妨碍交通的地方后报警。
+					</p>
+					<p>
+						注意：<strong>凡事符合快速处理情形的交通事故，当事人都应当及时主动撤离现场。</strong>对于应当撤离而未撤离，造成交通堵塞的，高速公路交警部门将依法予以罚款200元。
+                    </p>
+					<div class="button-area">
+                        <a href="javascript:;" id="button_showOut" class="weui-btn weui-btn_mini weui-btn_default">我知道了</a>
+                    </div>
+				</div>
+			</div>
+        </div>
+		<script src="${springPath}/static/js/weixin/zepto.min.js"></script>
+		<script src="${springPath}/static/js/weixin/index.js"></script>
+	</body>
+</html>

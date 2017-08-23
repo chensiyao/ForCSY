@@ -2,6 +2,7 @@ package com.csy.util;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.List;
 
 public abstract class StringUtils
 {
@@ -259,4 +260,8 @@ public abstract class StringUtils
 		}
 		return str;
 	}
+	
+	public static String join(List<String> list){
+		return org.apache.commons.lang.StringUtils.join(list, ',');
+	} 
 }

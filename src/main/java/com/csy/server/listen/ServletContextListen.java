@@ -7,6 +7,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import com.csy.util.WxConfig;
+
 /**
  * Application Lifecycle Listener implementation class ServletContextListen
  *
@@ -56,6 +58,10 @@ public class ServletContextListen implements ServletContextListener, ServletCont
     	ServletContext context = arg0.getServletContext();
     	String springPath = context.getContextPath();
     	context.setAttribute("springPath", springPath);
+    	
+    	context.setAttribute("wx_appid", WxConfig.getInstance().getAppid());
+    	context.setAttribute("wx_appsecret", WxConfig.getInstance().getAppsecret());
     }
 	
 }
+

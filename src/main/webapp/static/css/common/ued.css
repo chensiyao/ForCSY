@@ -1,0 +1,259 @@
+/*! *******************************************************************************/
+/*!
+ * CopyRight 1995-2016: 苏州科达科技股份有限公司 
+ * Project： Avatar2KITS 
+ * Description： 智能交通视觉规范
+ * Author：zhaochunyang
+ * Create Date： 2016-08-18
+ * History：
+ *   2016-09-01: 增加开关按钮(switchbox). by zhaochunyang
+ *   2016-09-02: dialog修改使用默认实现标题栏. by zhaochunyang
+ *   2016-11-14: 增加布局块标题和背景titleDiv. by zhaochunyang
+ *   2016-11-14: 调整按钮样式风格. by zhaochunyang
+ *   2016-11-15: 调整图标按钮样式风格. by zhaochunyang
+ *   2016-11-16: 设置body的margin为0. by zhaochunyang
+ ************************************************************************************/
+ 
+/*! *************************全局设置************************************************/
+
+body,input,button,textarea {
+	font: 14px/1 "Microsoft Yahei", 微软雅黑, Arial;
+	font-size: 14px;
+	font-weight:normal;
+	color:#444444;/*ued色号:23*/
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	color: #787878;
+	overflow: hidden;
+	font-size: 14px;
+	width:100%;
+    height:100%;
+}
+
+input, button, textarea {	
+	border:1px solid #d1d1d1;/*ued色号:15*/
+	outline: none;
+}
+
+img {
+	border:none;
+}
+
+li {
+	list-style: none;
+}
+
+/*!****************************滚动条样式********************************************/
+
+/* 滚动条样式 */
+*{
+  scrollbar-face-color: #f3f3f3; /*面子*/
+  scrollbar-arrow-color: #c0c0c0; /*箭头*/
+  scrollbar-3dlight-color: #c0c0c0; /*最外左*/
+  scrollbar-highlight-color: #ffffff; /*左二*/
+  scrollbar-shadow-color: #ffffff; /*右二*/
+  scrollbar-darkshadow-color: #c0c0c0; /*右一*/
+  scrollbar-track-color: #f3f3f3; /*滑道*/
+}
+
+/*!****************************分块布局title标题*****************************************/
+
+/*标题框*/
+#titleDiv{
+	border:1px solid #bababa;
+	background: #3e7fb6;
+	width:100%;
+	height:35px;
+}
+
+/*标题框*/
+.titleDiv{
+	border:1px solid #bababa;
+	background: #3e7fb6;
+	width:100%;
+	height:35px;
+}
+
+/*标题名*/
+.pageTitle{
+	height:35px;
+	line-height:35px;
+	font-size:16px;
+	font-weight:bold;
+	color:#ffffff;
+	text-align:center;
+	margin:0 auto;
+	width:300px;
+	font-family: "Microsoft Yahei", 微软雅黑, Arial;
+}
+
+/*!****************************input text样式****************************************/
+.znjt-input-text
+{
+	font-size:14px;
+	font-family: "Microsoft Yahei", 微软雅黑, Arial;
+	background: #f9f9f9 none repeat scroll 0 0;/*ued色号:16*/
+    border: 1px solid #d1d1d1;
+    border-radius: 2px;
+    color: #787878;
+    height: 28px;
+    line-height: 28px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-top: 1px;
+}
+
+.znjt-input-text:focus {
+    border: 1px solid #bce4f7;/*ued色号:19*/
+    background: #ffffff none repeat scroll 0 0;
+}
+
+/* 输入表单值错误 */
+.znjt-input-text-error {
+	border: 1px solid #ff5454;
+}
+
+/* 输入表单高亮 */
+.znjt-input-text-highlight {
+	border: 1px solid #7abd54;
+	height:30px;
+}
+
+
+
+/* 文字按钮（大小与颜色组合） */
+.znjt-btn-s-1, .znjt-btn-m-1, .znjt-btn-l-1,.znjt-btn-xl-1,.znjt-btn-xxl-1,
+.znjt-btn-s-2, .znjt-btn-m-2, .znjt-btn-l-2,.znjt-btn-xl-2,.znjt-btn-xxl-2, 
+.znjt-btn-s-3, .znjt-btn-m-3, .znjt-btn-l-3,.znjt-btn-xl-3,.znjt-btn-xxl-3 {
+	height: 30px;
+	border: 0px;
+	cursor:pointer;
+	color:#1e395b;
+	text-align: center;
+	font-size:14px;
+	font-family: "Microsoft Yahei", 微软雅黑, Arial;
+}
+
+/* 按钮禁用效果 */
+.znjt-btn-s-1[disabled="disabled"],   
+.znjt-btn-m-1[disabled="disabled"], 
+.znjt-btn-l-1[disabled="disabled"],   
+.znjt-btn-xl-1[disabled="disabled"],
+.znjt-btn-xxl-1[disabled="disabled"], 
+.znjt-btn-s-2[disabled="disabled"], 
+.znjt-btn-m-2[disabled="disabled"],   
+.znjt-btn-l-2[disabled="disabled"],
+.znjt-btn-xl-2[disabled="disabled"],  
+.znjt-btn-xxl-2[disabled="disabled"], 
+.znjt-btn-s-3[disabled="disabled"],   
+.znjt-btn-m-3[disabled="disabled"], 
+.znjt-btn-l-3[disabled="disabled"],   
+.znjt-btn-xl-3[disabled="disabled"],
+.znjt-btn-xxl-3[disabled="disabled"] {
+	color: #999999;
+	cursor: default;
+}
+
+/* 小号（2个字）*/
+.znjt-btn-s-1 {
+	background:url(../../img/common/normal.png) no-repeat center;
+	width: 60px;
+}
+
+/* 小号按钮动态效果 */
+.znjt-btn-s-1:hover,
+.znjt-btn-s-1:active,
+.znjt-btn-s-2:hover,
+.znjt-btn-s-2:active,
+.znjt-btn-s-3:hover,
+.znjt-btn-s-3:active{
+	font-weight: bold;
+	background: url(../../img/common/hover.png) no-repeat center;
+}
+
+.whole-div {
+	margin:0px 0px 15px 0px;
+	border:1px solid #D1D1D1;
+	color: #51555C;
+	background:#f9f9f9; 
+}
+.main{
+	margin:10px 10px 10px 10px;
+}
+.znjt-search-label{
+	height:20px;
+	line-height:20px;
+}
+.znjt-text-align-center{
+	text-align:center;
+}
+
+.znjt-color-background-5 {
+	background: #e8f3f7 none repeat scroll 0 0;
+}
+.hpbzAllDiv {
+    line-height:30px;
+    height: 30px;
+    box-sizing: border-box;
+    cursor: pointer;
+    width:55px;
+    float: left;
+    margin-left: 2px;
+    text-align: center;   
+}
+.hpbzDiv{
+	width:20px;
+	height: 30px;
+	line-height:30px;
+	float: left;
+	border: 1px solid #d1d1d1;
+	text-align: center;
+	cursor:pointer;
+}
+.hmInputDiv{
+    box-sizing: border-box;
+    cursor: pointer;
+    width:60px ;
+    float: left;
+    margin-left: 2px;
+}
+.hpbzAll{
+    box-sizing: border-box;
+    border-radius: 2px;
+    line-height:30px;
+    height: 30px;
+    width: 100%;
+    border: 1px solid #d1d1d1;
+    background-color: #fff;
+    box-shadow: 0 0 3px white inset, 0 1px 1px rgba(0, 0, 0, 0.1);
+    padding: 5% 0 
+}
+.date-icon {
+	cursor:pointer;
+	background-image: url("../../img/common/pick-date.png");
+    background-repeat: no-repeat;
+    background-position: 100% 0 ;
+    padding-right: 15px;
+}
+.display-inline-block{
+	display:inline-block;
+}
+.overFlow{
+	overflow: auto;
+	border: 1px solid #d1d1d1;
+}
+.znjt-search-table{
+	 table-layout: fixed;
+	 width: 100%; 
+	 border-collapse:separate;
+}
+.text-resize{
+	text-overflow: ellipsis; /* for IE */  
+    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+    overflow: hidden;  
+    white-space: nowrap; 
+}
+.label-span {display: inline-block;height:30px;line-height:30px;margin-right:10px;text-align: right;width:60px;}

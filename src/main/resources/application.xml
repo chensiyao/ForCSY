@@ -51,6 +51,17 @@
 		autowire="byName">
 		<property name="mapperLocations" value="classpath*:com/csy/**/sqlmap/*.xml" />
 		<property name="dataSource" ref="dataSource" />
+		<property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <value>
+                            dialect=mysql
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
 	</bean>
 
 	<!--MapperScannerConfigurer配置 -->
@@ -82,5 +93,9 @@
 		<aop:pointcut id="pc" expression="execution(* com.csy..service..*.*(..))" /> <!--把事务控制在Service层 -->
 		<aop:advisor pointcut-ref="pc" advice-ref="userTxAdvice" />
 	</aop:config>
-
+	
+	<!-- 文件上传主线程 -->
+	<bean id="wxFileStoreMain" class="com.csy.util.wx.WxFileStoreMain" init-method="startThread"></bean>
+	
+	<import resource="classpath:task-beans.xml"/>
 </beans>

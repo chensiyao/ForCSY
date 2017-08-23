@@ -40,3 +40,11 @@
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
     color: #fff;
 }
+.section{
+	width:100%;height:100%;margin:0;position:relative;left:0;top:0;right:0;bottom:0;background-image:url(../../img/login/login/login.jpg);background-size:cover;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader ( sizingMethod='scale' , src='static/img/login/login/login.jpg');
+	min-width:800px;
+	width:expression(($(window).width() < 800) ? "800px" : "auto" );
+	min-height:450px;
+	height:expression(($(window).width() < 450) ? "450px" : "auto" );
+}

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>注册csy服务</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>快处快赔管理平台</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
 		<meta name="renderer" content="webkit">
 		<link href="${springPath}/static/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="${springPath}/static/plugins/bootstrapValidate/dist/css/bootstrapValidator.min.css" rel="stylesheet">
@@ -18,30 +19,30 @@
 	<body>
 		
 		<div id="fullpage" class="fullpage">
-			<div class="section fp-auto-height">
+			<div class="section fp-auto-height" style="display: none;">
 				#parse("/include/head/commonTopWithNoLink.vm")
 			</div>
-            <div class="section" style="background-image:url('${springPath}/static/img/login/login/T1.jpg');">
-				<div class="container box-content">
+            <div class="section">
+				<div class="container box-content" style="top:30%;padding-left: 3%;">
 					<div class="row">
 						<div class="col-md-offset-1 col-md-5 hidden-xs">
-							<img width="100%;" src="${springPath}/static/img/login/login/T1_1.png" />
+							<img width="100%;" style="display: none;" src="${springPath}/static/img/login/login/T1_1.png" />
                         </div>
-						<div class="col-md-offset-1 col-md-3 col-xs-12" style="min-width:300px;">
+						<div class="col-md-offset-1 col-md-3 col-xs-12" style="min-width:25%;">
 							<div class="loginBox">
-								<div class="loginBoxBackground hidden-xs"></div>
+								<div class="loginBoxBackground hidden-xs" style="filter: progid:DXImageTransform.Microsoft.Gradient(startColorstr=#33000000,endColorstr=#33000000)"></div>
     								
             					<ul class="nav nav-pills linesWidthBlackBg">
             						<li class="active">
-            							<a href="#accountLogin" data-toggle="tab">帐号登录</a>
+            							<a href="#accountLogin" data-toggle="tab" style="background-color:transparent;">帐号登录</a>
             						</li>
-            						<li class="disabled safeLogin">
+            						<li class="disabled safeLogin" style="display: none;">
             							<a href="#safeLogin" data-toggle="tab">安全登录</a>
             						</li>
             					</ul>
 								<div class="tab-content">
 									<div class="tab-pane active" id="accountLogin">
-        								<form class="form-horizontal loginForm">
+        								<form class="form-horizontal loginForm" action="XXX" method="post">
 											<div class="input-group input-group-xs col-sm-12" style="margin:10px 0px;">
                                                 <span class="input-group-addon" style="background-color:#fff;"><span class="glyphicon glyphicon-user"></span></span>
 												<input type="text" class="form-control" id="account" name="account" placeholder="帐号/邮箱/手机号">
@@ -50,7 +51,7 @@
                                                 <span class="input-group-addon" style="background-color:#fff;"><span class="glyphicon glyphicon-eye-close"></span></span>
                                                 <input type="password" class="form-control" id="password" name="password" placeholder="输入密码">
 											</div>
-											<div id="securityCodeDiv" style="margin:0px 0px 5px 0px;" class="hidden">
+											<div id="securityCodeDiv" style="margin:0px 0px 5px 0px;" class="show">
 												<div class="row">
 													<div class="col-sm-6 col-xs-6">
 														<input type="text" class="form-control " id="securityCode" name="securityCode" placeholder="输入验证码" />
@@ -68,15 +69,15 @@
 													<input type="checkbox" style="float:left;margin-right:5px;" id="rememberAccount" name="rememberAccount" />
 													<label style="color:#fff;float:left;font-weight:500;" for="rememberAccount">记住我</label>
                                                 </div>
-                                                <div class="col-xs-6 text-right">
+                                                <div class="col-xs-6 text-right" style="display: none;">
                                                     <a href="#" style="color:#fff;">忘记密码?</a>
                                                 </div>
                                             </div>
                                 			<div class="input-group input-group-xs col-xs-12" >
-                                				<button type="submit" class="btn btn-default btn-md col-xs-12">登录</button>
+                                				<button type="submit" class="btn btn-default btn-md col-xs-12" id='btnLogin'>登录</button>
                                 			</div>
 											<div class="form-group" style="margin-top:10px;">
-												<div class="col-xs-12" style="color:#fff;">
+												<div class="col-xs-12" style="color:#fff;display: none;">
 													还没有帐号? <a href="${springPath}/register" style="color:#FFA00A;">去注册</a>
                                                 </div>
                                 			</div>
@@ -92,26 +93,26 @@
                 </div>
 				
 			</div>
-            <div class="section" style="background-image:url('${springPath}/static/img/login/login/T2.jpg');">
+            <!--<div class="section" style="background-image:url('${springPath}/static/img/login/login/T2.jpg');">
 			</div>
             <div class="section" style="background-image:url('${springPath}/static/img/login/login/T3.jpg');">
-				<!--
+				
 					<div class="slide">第三屏的第一屏</div>
                     <div class="slide">第三屏的第二屏</div>
                     <div class="slide">第三屏的第三屏</div>
                     <div class="slide">第三屏的第四屏</div>
-				-->
+				
             </div>
             <div class="section" style="background-image:url('${springPath}/static/img/login/login/T4.jpg');">
-			</div>
+			</div> -->
         </div>
-		
+        <script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>  
+		<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>  
 		<script src="${springPath}/static/plugins/jquery/dist/jquery.min.js"></script>
 		<script src="${springPath}/static/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="${springPath}/static/plugins/bootstrapValidate/dist/js/bootstrapValidator.min.js"></script>
 		<script src="${springPath}/static/plugins/fullPage/jquery.fullpage.min.js"></script>
 		<script src="${springPath}/static/js/common/common.js"></script>
 		<script src="${springPath}/static/js/login/login.js"></script>
-    		
+    	
 	</body>
 </html>

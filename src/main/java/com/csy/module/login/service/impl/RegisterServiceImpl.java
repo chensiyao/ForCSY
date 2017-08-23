@@ -9,7 +9,7 @@ import com.csy.module.user.entity.BUserInfo;
 import com.csy.module.user.service.service.BUserInfoService;
 import com.csy.module.user.service.service.BuserAccountService;
 import com.csy.util.RandDomUtil;
-import com.csy.util.algorithm.DesUtil;
+import com.csy.util.algorithm.MD5Util;
 
 @Service
 public class RegisterServiceImpl implements RegisterService{
@@ -22,10 +22,8 @@ public class RegisterServiceImpl implements RegisterService{
 	@Override
 	public int insertAccount(BUserAccount account) throws Exception {
 		String password = account.getPassword();
-		String safeKey = RandDomUtil.getRandomString(32);
-		account.setSafekey(safeKey);
-		account.setPassword(new DesUtil(safeKey).encrypt(password));
-		
+		account.setPassword(MD5Util.MD5(MD5Util.MD5(password)));
+		account.setSafekey(RandDomUtil.getRandomString(32));
 		BUserInfo bUserInfo = new BUserInfo();
 		bUserInfo.setForeignAccount(account.getAccount());
 		accountService.insertSelective(account);

@@ -1,6 +1,6 @@
 <div style="height:45px;">
 	<div class="head_wrapper">
-	    <div class="container">
+	    <div class="container" style="width:100%;margin-left: 0px;margin-right: 0px;">
 	    	<div class="row">
 	    		<div class="col-lg-6 col-md-6">
 					<div class="pull-left">
@@ -22,16 +22,17 @@
 										</span>
 			                            <div class="xs-popover-content">
 											<div class="list-group">
-												<a href="${springPath}/${user.id}/cZone" class="list-group-item">个人中心</a>
+												<!-- <a href="${springPath}/${user.id}/cZone" class="list-group-item">个人中心</a>
 												<a href="${springPath}/setting/profile" class="list-group-item">帐号设置</a>
-												<a href="${springPath}/index" class="list-group-item">意见反馈</a>
-												<a href="${springPath}/logout" class="list-group-item">注销登录</a>
+												<a href="${springPath}/index" class="list-group-item">意见反馈</a> -->
+												<a href="${springPath}/login.do" class="list-group-item">注销登录</a>
+												<div class="list-group-item" onclick="modifyPassword()" style="cursor:pointer;">修改密码</div>
 											</div>
 			                            </div>
 		                            </div>
 								</div>
 	    					#else
-								<a href="${springPath}/login" style="display:inline-block;">
+								<a href="${springPath}/login.do" style="display:inline-block;">
 	    							<button class="btn btn-xs btn-link">登录</button>
 								</a>
 								<span class="divider" style="line-height:1.5;">|</span>
@@ -46,3 +47,31 @@
 	    </div>
 	</div>
 </div>
+<div id="password" title="密码修改" style="text-align:center;display: none;background-color: #fff;border: 1px solid #d1d1d1;">
+	<table style="height:100%;width:100%">
+		<tr>
+			<td>
+				<span id="spanOldPwd" class="label-span">旧密码</span>
+          		<input class="znjt-input-text" name="password" id="txtOldPwd" type="password" value="" maxlength="16"/>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span id="spanNewPwd" class="label-span">新密码</span>
+          		<input class="znjt-input-text" name="password" id="txtNewPwd" type="password"  value="" maxlength="16" />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<span id="spanNewPwd2" class="label-span">密码确认</span>
+		        <input class="znjt-input-text" name="password" id="txtNewPwd2" type="password" value="" maxlength="16" />
+			</td>
+		</tr>
+		<tr>
+			<td style="text-align:center;padding-left: 45px;padding-top: 15px;">
+				<input class="znjt-btn-s-1" type="button" value="确定" onclick="btnModifyOk()"/>
+				<input onclick="btnModifyReset()" style="margin-left:15px;" class="znjt-btn-s-1" type="button" value="重置"/>
+			</td>
+		</tr>
+	</table>
+</div> 

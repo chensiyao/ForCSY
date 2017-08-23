@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>快处快赔beta</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+        <link rel="stylesheet" href="https://res.wx.qq.com/open/libs/weui/1.1.1/weui.min.css"/>
+        <link rel="stylesheet" href="${springPath}/static/css/weixin/kckp.css"/>
+	</head>
+	<body ng-app="myApp" ng-controller="myCtrl" 
+    		ng-init="inVoice=false;" 
+    		ng-touchend="stopRecord();" 
+			ng-touchstart="onTouchMove($event);" 
+    		class="{{inVoice?'bodyInVoice':''}}" style="display:none;">
+		<div class="formInValidErrorMsg" id="formInValidErrorMsg"></div>
+		<form name="registerForm" novalidate>
+			<div class="weui-cells__title">事故信息</div>
+    		<div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">事故时间</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input" ng-model="info.occurrenceTime" type="datetime-local" placeholder="事故具体发生时间"/>
+                    </div>
+    			</div>
+    			<div class="weui-cell">
+    				<div class="weui-cell__hd"><label class="weui-label">事故地点</label></div>
+                    <div class="weui-cell__bd">
+                        <input class="weui-input position" ng-model="position" type="input" placeholder="事故发生位置定位" readonly="true" 
+							ng-init="position='定位中,请稍候...'" ng-click="getPosition();" ng-class="{'positionFail':!!positionFail}"/>
+							
+                        <input ng-model="info.longitude" name="longitude" type="hidden"/>
+                        <input ng-model="info.latitude" name="latitude" type="hidden"/>
+						<!--
+                            <input ng-model="info.longitude" name="longitude" type="hidden" validator="required"/>
+                            <input ng-model="info.latitude" name="latitude" type="hidden" validator="required"/>
+						-->
+                    </div>
+    				<div class="weui-cell__ft" ng-click="openLocation(info.longitude,info.latitude);">
+                        <span class="weui-icon-position"></span>
+                    </div>
+    			</div>
+            </div>
+			
+			<div ng-repeat="jsyxx in info.jsyxxs">
+				<div class="weui-cells__title">
+					<span ng-bind="jsyxxIndex($index)"></span>&nbsp;驾驶员信息
+                    <span class="weui-cells__ft union-btn" ng-hide="$index==0" ng-click="deleteJsy($index);">
+						<span class="weui-icon-delete_sm"></span>删除
+					</span>	
+				</div>
+				<div class="weui-cells weui-cells_form">
+					<div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
+                        <div class="weui-cell__bd">
+                            <input ng-model="jsyxx.name" name="jsyxxName{{$index}}" class="weui-input" type="text" placeholder="驾驶员姓名"
+								validator="required,maxlength=16">
+                        </div>
+						<div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+    				<div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">车辆号牌</label></div>
+                        <div class="weui-cell__bd">
+                            <input ng-model="jsyxx.hphm" name="jsyxxHphm{{$index}}" class="weui-input" type="text" placeholder="输入车辆号牌"
+								validator="required,hphm">
+                        </div>
+						<div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+    				<div class="weui-cell">
+                        <div class="weui-cell__hd"><label class="weui-label">手机号码</label></div>
+                        <div class="weui-cell__bd">
+                            <input ng-model="jsyxx.contact" name="jsyxxContact{{$index}}" class="weui-input" type="tel" value="" placeholder="输入手机号"
+								validator="required,phone">
+                        </div>
+						<div class="weui-cell__ft">
+                            <i class="weui-icon-warn"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<div ng-init="disableAddJsy=true;" ng-show="disableAddJsy">
+    			<a href="javascript:void(0);" class="weui-cell weui-cell_link addJsy" ng-click="addJsy()">
+                        <span class="weui-icon-add_sm icon_xzjsy"></span>
+                        <span>新增驾驶员</span>
+    			</a>
+			</div>
+			
+			<div class="weui-cells__title">现场图片上传
+				
+				<span class="weui-cells__ft union-btn" ng-init="editUploder=false" ng-hide="editUploder" 
+					ng-click="editUploder=!editUploder">
+					<span class="weui-icon-modify_sm"></span>编辑
+				</span>
+				
+				<span class="weui-cells__ft union-btn" ng-hide="!editUploder" 
+					ng-click="editUploder=!editUploder">
+					<span class="weui-icon-success_sm"></span>完成
+				</span>
+				
+			</div>
+			<div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-uploader">
+                            <div class="weui-uploader__bd">
+                                <ul class="weui-uploader__files">
+									<li class="weui-uploader__file
+										{{!xxtp.uploadSuccess?'weui-uploader__file_status':''}} 
+										uploaderFile {{editUploder?'shake-little':''}}" 
+										ng-repeat="xxtp in xxtps" 
+										ng-click="picClick($index)"
+										ng-style="{'background-image':'url('+ (xxtp.iosUploadUrl || xxtp.uploadUrl)+')'}">
+										<div ng-hide="editUploder">
+                                            <div ng-hdie="xxtp.uploadSuccess" class="weui-uploader__file-content">
+                                                <i ng-show="xxtp.uploadError && !xxtp.uploadWaiting" class="weui-icon-warn"></i>
+                                                <i ng-show="xxtp.uploadWaiting" class="weui-loading"></i>
+                                            </div>
+                                        </div>
+										<div class="deleteUploadDiv" ng-hide="!editUploder" ng-click="deletePic($event, $index)">
+											<span class="weui-icon-delete1_sm deleteUpload"></span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="weui-uploader__input-box" ng-hide="xxtps.length>=10 || editUploder">
+                                    <input class="weui-uploader__input"
+										type="button" accept="image/*" multiple="" ng-click="uploadImgLocal()">
+                                </div>
+                            </div>
+                            <div class="weui-uploader__ft" 
+								ng-init="minXxtpNum=5">
+								<input ng-model="xxtps.length" type="hidden" name="xxtpNum" validator="min={{minXxtpNum}}"/>
+								<div class="weui-textarea-counter">
+                                    <span style="float:left;">请至少上传<span ng-bind="minXxtpNum"></span>张图片
+										<a class="union-btn" ng-click="examplePic();">示例图</a>
+									</span>
+    								<span ng-bind="xxtps.length">0</span>/10
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<div class="weui-cells__title">事故责任</div>
+			<div class="weui-cells weui-cells_form">
+        		<div class="weui-cell">
+                    <div class="weui-cell__hd"><label class="weui-label">责任信息</label></div>
+                    <div class="weui-cell__bd">
+                        <input ng-model="info.duty" name="duty" class="weui-input" value="" 
+							placeholder="事故责任方" maxlength=32 
+							validator="required,maxlength=32">
+                    </div>
+					<div class="weui-cell__ft"> 
+                        <i class="weui-icon-warn"></i>
+                    </div>
+                </div>
+            </div>
+			
+			<!-- 录音责任代码 start -->
+			<div class="weui-cells__title">事故描述+责任确认录音
+				<span class="weui-cells__ft union-btn" ng-init="editUploderVoice=false" ng-hide="editUploderVoice" 
+					ng-click="editUploderVoice=!editUploderVoice">
+					<span class="weui-icon-modify_sm"></span>编辑
+				</span>
+				<span class="weui-cells__ft union-btn" ng-hide="!editUploderVoice" 
+					ng-click="editUploderVoice=!editUploderVoice">
+					<span class="weui-icon-success_sm"></span>完成
+				</span>
+			</div>
+			<div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-uploader">
+                            <div class="weui-uploader__bd voiceUpload">
+								<div>
+                                    <ul class="weui-uploader__files">
+    									<li class="weui-uploader__file uploaderFile uploaderFile_voice 
+    										{{!voice.uploadSuccess?'weui-uploader__file_status':''}} 
+											{{!!voice.voicing?'playing':''}} 
+    										{{editUploderVoice?'shake-little':''}}" 
+											ng-repeat="voice in voices" 
+    										ng-click="playVoice($index)">
+    										<div ng-hide="editUploderVoice">
+                                                <div ng-hdie="voice.uploadSuccess" class="weui-uploader__file-content">
+                                                    <i ng-show="voice.uploadError && !voice.uploadWaiting" class="weui-icon-warn"></i>
+                                                    <i ng-show="voice.uploadWaiting" class="weui-loading"></i>
+                                                </div>
+                                            </div>
+    										<div class="deleteUploadDiv" ng-hide="!editUploderVoice" ng-click="deleteVoice($event, $index)">
+    											<span class="weui-icon-delete1_sm deleteUpload"></span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="weui-btn weui-btn_default weui-uploader__voice-box
+									{{inVoice?'inVoiceBtn':''}}" 
+									ng-hide="voices.length>=3 || editUploderVoice"
+									ng-touchstart="startRecord();">
+                                    <span ng-bind="!inVoice?'按住 出现提示后说话':'松开 结束'"></span>
+                                </div>
+                            </div>
+							<div class="weui-uploader__ft" 
+								ng-init="minVoiceNum=1">
+								<input ng-model="voices.length" type="hidden" name="voiceNum" validator="min={{minVoiceNum}}"/>
+								<div class="weui-textarea-counter">
+                                    <span style="float:left;">请至少上传<span ng-bind="minVoiceNum"></span>段录音</span>
+									<span ng-bind="voices.length">0</span>/3
+								</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<!-- 录音责任代码 end -->
+			<div style="display:none;">
+    			<div class="weui-cells__title">事故描述</div>
+        		<div class="weui-cells weui-cells_form">
+    				<div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <textarea ng-model="info.description" class="weui-textarea" 
+    							placeholder="事故发生原因概述" rows="3" maxlength=200></textarea>
+                            <div class="weui-textarea-counter"><span ng-bind="getSgfsmsLenght()">0</span>/200</div>
+                        </div>
+                    </div>
+                </div>
+			</div>
+    		<div class="weui-btn-area">
+				<!--
+					ng-disabled="!form.checkValid(registerForm)" ng-class="{'weui-btn_disabled':!form.checkValid(registerForm)}" 
+				-->
+    			<a href="javascript:;" class="weui-btn weui-btn_primary {{submitted?'weui-btn_loading':''}}" 
+					ng-disabled="submitted || submitting" ng-class="{'weui-btn_disabled':(submitted || submitting)}" 
+					ng-click="form.submit(info)">
+					<i class="weui-loading" ng-show="submitting"></i>
+					<span ng-if="submitted">已提交</span>
+					<span ng-if="submitting">正在提交...</span>
+					<span ng-if="!(submitted || submitting)">提交</span>
+				</a>
+            </div>
+    		
+    		<div class="page__ft">
+    		</div>
+    		
+        </form>
+		
+		<div ui-view ng-class="ui-view"></div>
+		
+		<script type="text/ng-template" id="examplePic.html">
+			<div class="forRst msg_success js_show">
+				<img src="../static/img/weixin/example.jpg" style="width:100%"/>
+            </div>
+		</script>
+		
+		<script type="text/ng-template" id="toast_ok.html">
+			<div id="toast" style="opacity: 1; display: block;">
+                <div class="weui-mask_transparent"></div>
+                <div class="weui-toast">
+                    <i class="weui-icon-success-no-circle weui-icon_toast"></i>
+                    <p class="weui-toast__content">已完成</p>
+                </div>
+            </div>
+		</script>
+		
+		<script type="text/ng-template" id="toast_voice.html">
+			<div id="toast" style="opacity: 1; display: block;">
+                <div class="weui-mask_transparent"></div>
+                <div class="weui-toast">
+                    <i class="weui-icon-voice weui-icon_toast"></i>
+                    <p class="weui-toast__content" ng-bind="fail?fail:'录音中'"></p>
+                </div>
+            </div>
+		</script>
+		
+		<script type="text/ng-template" id="formRst.html">
+			<div class="forRst msg_success js_show" ng-show="!errMsg">
+                <div class="weui-msg">
+                    <div class="weui-msg__icon-area"><i class="weui-icon-success weui-icon_msg"></i></div>
+                    <div class="weui-msg__text-area">
+                        <h2 class="weui-msg__title">操作成功</h2>
+                        <p class="weui-msg__desc">已提交完毕，您现在可以在提交记录中查看。</p>
+                    </div>
+                    <div class="weui-msg__opr-area">
+                        <p class="weui-btn-area">
+                            <a href="./myRecord" class="weui-btn weui-btn_primary">提交记录</a>
+                            <a href="./index" class="weui-btn weui-btn_default">回到主页</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="forRst msg_warn js_show" ng-show="!!errMsg">
+                <div class="weui-msg">
+                    <div class="weui-msg__icon-area"><i class="weui-icon-warn weui-icon_msg"></i></div>
+                    <div class="weui-msg__text-area">
+                        <h2 class="weui-msg__title">操作失败</h2>
+                        <p class="weui-msg__desc">请求服务出现异常，<a href="./fkyj/index">点击反馈</a></p>
+                    </div>
+                    <div class="weui-msg__opr-area">
+                        <p class="weui-btn-area">
+                            <a href="javascript:void(0);" class="weui-btn weui-btn_primary" ng-click="rtnForm()";>返回重试</a>
+							<a href="./index" class="weui-btn weui-btn_default">回到主页</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </script>
+		
+		<!--
+			<script src="${springPath}/static/plugins/jquery/dist/jquery.min.js"></script>
+		<script src="${springPath}/static/js/common/common.js"></script>
+		-->
+		<script src="${springPath}/static/js/weixin/zepto.min.js"></script>
+		<script src="${springPath}/static/plugins/angularJS/angular.min.js"></script>
+        <script src="${springPath}/static/plugins/angularJS/angular-ui-router.js"></script>
+		<script src="${springPath}/static/plugins/angularJS/angular-validation.js"></script>
+		<script src="${springPath}/static/plugins/angularJS/angular-validation-rule.js"></script>
+		<script src="${springPath}/static/js/common/wx-common.js"></script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+        <script src="https://res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+		<script src="http://map.qq.com/api/js?v=2.exp"></script>
+		<script src="${springPath}/static/js/weixin/kckp.js"></script>
+	</body>
+</html>

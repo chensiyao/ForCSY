@@ -9,6 +9,9 @@ body{
 .hidden{
 	display:none;
 }
+.show{
+	display:block;
+}
 
 .head_wrapper{
 	border-top: 2px solid #fa7d3c;
@@ -27,11 +30,11 @@ body{
 }
 
 div.website_logo{
-	height: 30px;
-	width: 80px;
+	height: 40px;
+	width: 300px;
 	display: inline-block;
 	float: left;
-	background-image: url("../../img/common/wb_logo.png");
+	background-image: url("../../img/common/logo.png");
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
 	background-size: 100%;

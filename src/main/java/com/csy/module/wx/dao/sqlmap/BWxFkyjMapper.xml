@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csy.module.wx.dao.BWxFkyjMapper" >
+  <resultMap id="BaseResultMap" type="com.csy.module.wx.entity.BWxFkyj" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="openid" property="openid" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, openid, type, image, description, create_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BWxFkyjExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from b_wx_fkyj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_wx_fkyj
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_wx_fkyj
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.csy.module.wx.entity.BWxFkyjExample" >
+    delete from b_wx_fkyj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.csy.module.wx.entity.BWxFkyj" >
+    insert into b_wx_fkyj (id, openid, type, 
+      image, description, create_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{openid,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, 
+      #{image,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.csy.module.wx.entity.BWxFkyj" >
+    insert into b_wx_fkyj
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="openid != null" >
+        openid,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="openid != null" >
+        #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.csy.module.wx.entity.BWxFkyjExample" resultType="java.lang.Integer" >
+    select count(*) from b_wx_fkyj
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update b_wx_fkyj
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.openid != null" >
+        openid = #{record.openid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update b_wx_fkyj
+    set id = #{record.id,jdbcType=VARCHAR},
+      openid = #{record.openid,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      image = #{record.image,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csy.module.wx.entity.BWxFkyj" >
+    update b_wx_fkyj
+    <set >
+      <if test="openid != null" >
+        openid = #{openid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csy.module.wx.entity.BWxFkyj" >
+    update b_wx_fkyj
+    set openid = #{openid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      image = #{image,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="queryAllInfo" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BWxFkyj" >
+    select 
+    fxyj.id as id,
+	fxyj.openid as openid,
+	fxyj.create_time as createTime,
+	(select nickname from b_wx_user where openid = fxyj.openid) as nickname,
+	fxyj.type as type,
+	fxyj.image as image,
+	fxyj.description as description,
+	date_format(fxyj.create_time,'%Y-%m-%d %h:%i:%s') as kssj
+    from b_wx_fkyj fxyj
+    <where>
+    	<if test="description != null and description != ''" >
+        	and fxyj.create_time &gt;= #{description,jdbcType=VARCHAR}
+      	</if>
+      	<if test="image != null and image != ''" >
+        	and fxyj.create_time &lt;= #{image,jdbcType=VARCHAR}
+      	</if>
+    	<if test="type != null and type != '' ">
+    		and fxyj.type = #{type,jdbcType=INTEGER}
+    	</if>
+    	<if test="openid != null and openid != '' ">
+    		and fxyj.openid = #{openid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="id != null and id != '' ">
+    		and fxyj.openid in ( select openid from b_wx_user where  nickname like concat(concat('%',#{id,jdbcType=VARCHAR}),'%') )
+    	</if>
+    </where>
+    order by create_time desc
+  </select>
+  <select id="countByMap" resultType="java.lang.Integer" parameterType="com.csy.module.wx.entity.BWxFkyj" >
+   select count(*)
+   from b_wx_fkyj fxyj
+   <where>
+    	<if test="description != null and description != ''" >
+        	and fxyj.create_time &gt;= #{description,jdbcType=VARCHAR}
+      	</if>
+      	<if test="image != null and image != ''" >
+        	and fxyj.create_time &lt;= #{image,jdbcType=VARCHAR}
+      	</if>
+    	<if test="type != null and type != '' ">
+    		and fxyj.type = #{type,jdbcType=INTEGER}
+    	</if>
+    	<if test="openid != null and openid != '' ">
+    		and fxyj.openid = #{openid,jdbcType=VARCHAR}
+    	</if>
+    	<if test="id != null and id != '' ">
+    		and fxyj.openid in ( select openid from b_wx_user where  nickname like concat(concat('%',#{id,jdbcType=VARCHAR}),'%') )
+    	</if>
+    </where>
+ </select>
+</mapper>

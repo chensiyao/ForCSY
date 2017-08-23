@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:context="http://www.springframework.org/schema/context" xmlns:task="http://www.springframework.org/schema/task" xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+		 http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		 http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+         http://www.springframework.org/schema/context
+         http://www.springframework.org/schema/context/spring-context-3.0.xsd
+         http://www.springframework.org/schema/tx
+         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+         http://www.springframework.org/schema/jdbc 
+         http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+         http://www.springframework.org/schema/task   
+    	 http://www.springframework.org/schema/task/spring-task-3.0.xsd
+         http://www.springframework.org/schema/aop
+         http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+	<!-- 
+		<mvc:annotation-driven /> 会做以下几件事：
+    	向 spring 容器中注册 DefaultAnnotationHandlerMapping。
+    	向 spring 容器中注册 AnnotationMethodHandlerAdapter。
+    	配置一些 messageconverter。
+    	解决了 @Controller 注解的使用前提配置，即 HandlerMapping 能够知道谁来处理请求。 
+
+        <context:annotation-config /> 会做以下几件事：
+    	向 spring 容器中注册 AutowiredAnnotationBeanPostProcessor。
+    	向 spring 容器中注册 CommonAnnotationBeanPostProcessor。
+    	向 spring 容器中注册 PersistenceAnnotationBeanPostProcessor。
+    	向 spring 容器中注册 RequiredAnnotationBeanPostProcessor。
+    	使用 <context:annotationconfig />之前，必须在 <beans> 元素中声明 context 命名空间 <context:component-scan />。
+    	<context:component-scan /> 对包进行扫描，实现注解驱动 Bean 定义。即，将 @Controller 标识的类的 bean 注册到容器中。 
+    	
+		<context:component-scan/>:
+		不但启用了对类包进行扫描以实施注解驱动 Bean 定义的功能，同时还启用了注解驱动自动注入的功能（即还隐式地在内部注册了 AutowiredAnnotationBeanPostProcessor 
+		和 CommonAnnotationBeanPostProcessor）。
+		因此当使用 <context:component-scan /> 后，除非需要使用PersistenceAnnotationBeanPostProcessor 
+		和 RequiredAnnotationBeanPostProcessor 两个 Processor 的功能（例如 JPA 等），
+		否则就可以将 <context:annotation-config /> 移除了。
+	-->
+
+	
+	<!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能  需要更改-->
+	<context:component-scan base-package="com.csy.**">
+		<context:exclude-filter type="assignable" expression="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"></context:exclude-filter>
+		<context:exclude-filter type="assignable" expression="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"></context:exclude-filter>
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service"></context:exclude-filter>
+	</context:component-scan>
+	
+	<!-- 使用component-scan后，如果不需要@Persistence、@Required,可以移除context:annotation-config -->
+	<context:annotation-config />
+	
+	<!-- 激活@Controller模式,注册了DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter(@Controller的前提)--> 
+	<!-- <mvc:annotation-driven/> -->
+	
+    <!-- velocityConfig配置文件 --> 
+	<bean id="velocityConfig" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="configLocation" value="/WEB-INF/classes/velocity.properties" />
+		<property name="resourceLoaderPath">		
+			<value>/WEB-INF/views/</value>
+		</property>
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">UTF-8</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!--
+		第一视图解析器，如果找不到，将由其他使徒解析器接手
+		DispatcherServlet对视图的请求将会由VelocityViewResolver接管
+	-->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+		<property name="suffix" value=".vm" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="exposeSpringMacroHelpers" value="true"/>
+		<property name="requestContextAttribute" value="rc" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="allowSessionOverride" value="true" />
+		<property name="toolboxConfigLocation" value="/WEB-INF/classes/toolbox.xml" />
+		<property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityToolboxView" />
+		<property name="order" value="0"></property>  
+	</bean>
+	
+	<!--
+		第二视图解析器
+		注意事项:
+			1.Jstlview继承自AbstractUrlBasedView，AbstractUrlBasedView的checkResource方法总是返回true.
+				所以AbstractUrlBasedView的任何子类解析器都不要设置较高的优先级(设置最低即可).
+			2.重写JstlView的checkResource也是可行的
+				上述的VelocityToolboxView解析器已经重载过checkResource;
+	-->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">	
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/" />
+		<property name="suffix" value=".vm" />
+		<property name="order" value="1"></property>
+	</bean>
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="10485760000000" />
+		<property name="uploadTempDir" value="/temp/" />
+		<property name="maxInMemorySize" value="4096" />  
+	</bean>
+
+	<!-- 静态资源访问控制过滤器 -->
+	<mvc:resources mapping="/static/**" location="/static/"/> 
+	<mvc:resources mapping="/temp/**" location="/temp/"/>
+	<mvc:resources mapping="/MP_verify_*.txt" location="/mp/"/>
+	
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+	
+	<!-- MVC拦截器,仅拦截被注释的mapping -->
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+<!-- 		<property name="interceptors"> -->
+<!-- 		    <list> -->
+<!-- 		        <bean class="com.esademo.utils.annotation.AuthPassportInterceptor"/> -->
+<!-- 		    </list>   -->
+<!-- 		</property> -->
+    </bean>
+</beans>

@@ -3,6 +3,7 @@ package com.csy.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -56,5 +57,35 @@ public class TimeFormatUtil {
 			e.printStackTrace();
 		}
 		return date;
+	}
+	/**
+	 * 格式化时间
+	 * timeToStr(这里用一句话描述这个方法的作用)        
+	 * TODO(这里描述这个方法的注意事项 – 可选) 
+	 * author liuzhuo   
+	 * 日期  2015年4月15日 下午1:08:27
+	 * @param        
+	 * @return String    
+	 * @Exception 异常对象
+	 */
+	public static String timeToStr(Object object,SimpleDateFormat simpleDateFormat){
+		String  retStr = null;
+		//判断格式化对象是否为null
+		if(null ==simpleDateFormat){
+			simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		}
+		//判断参数对象是否为null
+		if(null == object){
+			retStr = simpleDateFormat.format(Calendar.getInstance().getTime());
+			return retStr;
+		}
+		
+		//判断参数类型
+		if(object instanceof Date){
+			retStr = simpleDateFormat.format(object);
+		}else if(object instanceof Calendar){
+			retStr = simpleDateFormat.format(((Calendar) object).getTime());
+		}
+		return retStr;
 	}
 }

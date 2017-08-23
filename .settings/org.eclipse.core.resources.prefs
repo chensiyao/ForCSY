@@ -2,4 +2,7 @@ eclipse.preferences.version=1
 encoding//src/main/resources/datasource.properties=UTF-8
 encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/main/resources/velocity.properties=UTF-8
+encoding//src/main/resources/weixin.properties=UTF-8
+encoding//src/main/webapp/static/js/wfjlgl/plugins/jcarousellite.js=UTF-8
 encoding/<project>=UTF-8
+encoding/\u9057\u7559\u95EE\u9898\u8BF4\u660E.properties=UTF-8

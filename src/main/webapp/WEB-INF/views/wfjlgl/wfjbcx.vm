@@ -1,0 +1,254 @@
+<!doctype html>
+<html>
+<head>
+<title>违法举报查询</title>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<link rel="stylesheet" href="${springPath}/static/css/common/ued.css" />
+<link rel="stylesheet"
+	href="${springPath}/static/showLoading/showLoading.css" />
+<link rel="stylesheet"
+	href="${springPath}/static/css/common/easyui_v1.0.css" />
+<link rel="stylesheet"
+	href="${springPath}/static/plugins/jquery/jquery.alert.css" />
+<link
+	href="${springPath}/static/plugins/bootstrap/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="${springPath}/static/css/common/common.css" rel="stylesheet">
+<link rel="stylesheet" href="${springPath}/static/css/wfjlgl/wfjlcx.css" />
+<style>
+.d_over {
+	/*  background-color:#5DCCE9; */
+	/* background-size:cover; */
+	background-size: 100% 100%;
+	background: url("${springPath}/static/img/wfjlgl/djlbzt.png") center
+		no-repeat;
+}
+
+.d_out {
+	background-color: #EFEFEF;
+}
+
+.s_in {
+	color: #FFFFFF;
+}
+
+.s_first {
+	color: #5E5E5E;
+}
+
+.item_over {
+	z-index: 2;
+	-webkit-box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+	-webkit-transform: translate3d(0, -2px, 0);
+	transform: translate3d(0, -2px, 0);
+	/* background-size:cover; */
+	background-size: 100% 100%;
+	background: url("${springPath}/static/img/wfjlgl/wdjzt.png") center
+		no-repeat;
+}
+
+.detail {
+	position: relative;
+	left: 15px;
+	line-height: 22px;
+	top: -20px;
+	cursor: pointer;
+	width: 60px;
+}
+
+.imageClass {
+	width: 130px;
+	height: 130px;
+	cursor: pointer;
+}
+
+.imageClassFq {
+	width: 140px;
+	height: 140px;
+	cursor: pointer;
+	margin-top: -25px;
+	filter: Alpha(opacity = 10);
+	-moz-opacity: .1;
+	opacity: 0.1;
+}
+
+#searchText::-webkit-input-placeholder {
+	color: #B4B4B4;
+	font-size: 12px;
+}
+
+.clear {
+	clear: both;
+	display: block;
+}
+
+
+.carousel .prev, .carousel .next {
+	height: 23px;
+	width: 23px;
+	overflow: hidden;
+	display: block;
+	margin-top: 40px;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.carousel .prev {
+	float: left;
+	background: url("${springPath}/static/img/wfjlgl/imageNavLeft.gif")
+		no-repeat;
+}
+
+.carousel .next {
+	float: left;
+	background: url("${springPath}/static/img/wfjlgl/imageNavRight.gif")
+		no-repeat;
+}
+
+.carousel #prev.disabled {
+	background:
+		url("${springPath}/static/img/wfjlgl/imageNavLeft-disabled.gif")
+		no-repeat;
+	cursor: default;
+}
+
+.carousel #next.disabled {
+	background:
+		url("${springPath}/static/img/wfjlgl/imageNavRight-disabled.gif")
+		no-repeat;
+	cursor: default;
+}
+
+.jCarouselLite {
+	float: left;
+	width: 486px;
+	height: 152px;
+	overflow: hidden; 
+}
+
+.jCarouselLite li {
+	height: 142px;
+	width: 152px;
+	text-align: center;
+}
+
+.jCarouselLite li img {
+	border: solid 1px #ddd;
+}
+</style>
+</head>
+<body>
+	<div class="wholessp-div">
+		<div class="main-top" style="float: left; width: 100%;">
+			<div class="maintitleDiv" style="text-align: center;"></div>
+
+			<div class="main-top1"
+				style="float: left; margin-top: 20px; margin-left: 20px; background-color: #E6F0ED;">
+				<div class="lbtitleDiv" style="text-align: center;">
+					<span class="pageTitle">随手拍列表</span>
+				</div>
+				<div id="dataGrid" align="center">
+					<table style="width: 100%; height: 100%;">
+
+						<tr align="center">
+							<!-- 	    <td width="10%">
+					    </td> -->
+							<td width="8%"><span class="pageTime">开始时间</span></td>
+							<td width="15%">
+
+								<div class="input-group">
+									<input type="text" id="kssj" style="width: 200px;" name="kssj"
+										class="form-control search-input date-icon"
+										value='${startTime}'
+										data-inputmask="'alias':'yyyy-MM-dd HH:mm:ss'"
+										onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'jssj\')}' })">
+
+
+								</div>
+							</td>
+							<td width="8%"><span class="pageTime">结束时间</span></td>
+							<td width="15%">
+								<div class="input-group">
+									<input type="text" id="jssj" name="jssj" style="width: 200px;"
+										class="form-control search-input date-icon" value='${endTime}'
+										data-inputmask="'alias':'yyyy-MM-dd HH:mm:ss'"
+										onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'kssj\')}' })">
+
+
+								</div>
+
+
+
+							</td>
+							<td width="8%"><span class="pageTime">审核状态</span></td>
+							<td width="10%"><select id="statusSelect"
+								style="width: 150px; height: 32px">
+									<option value="" selected="selected">全部</option>
+									<option value="0">未处理</option>
+									<option value="1">已确认</option>
+									<option value="2">已忽略</option>
+							</select></td>
+							<td width="20%">
+
+								<button id="vehicleSearchBtn" type="button"
+									class="btn btn-primary">&nbsp;&nbsp;查&nbsp;询&nbsp;&nbsp;</button>
+
+							</td>
+							<!-- 		 <td width="10%">
+					<input type="text" style=" border: none;background-color: #EFEFEF;font-size: 15px">
+					    </td> -->
+
+						</tr>
+
+					</table>
+				</div>
+
+
+				<div id="mainDiv1" style="float: left; border: none"
+					class="overFlow" align="center"></div>
+				<div id="mainDiv2" style="float: right; border: none"
+					class="overFlow" align="center"></div>
+			</div>
+		</div>
+	</div>
+</body>
+<script src="${springPath}/static/DatePicker/WdatePicker.js"></script>
+<script src="http://api.html5media.info/1.1.6/html5media.min.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.js"></script>
+<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+<script type="text/javascript"
+	src="${springPath}/static/plugins/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${springPath}/static/plugins/jquery/dist/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="${springPath}/static/plugins/jquery/dist/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="${springPath}/static/plugins/jquery/dist/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript"
+	src="${springPath}/static/plugins/jquery/jquery.alert.js"></script>
+<script src="${springPath}/static/js/common/common.js"></script>
+<script src="${springPath}/static/js/common/BigInt.js"
+	type="text/javascript"></script>
+<script src="${springPath}/static/js/common/RSA.js"
+	type="text/javascript"></script>
+<script src="${springPath}/static/js/common/Barrett.js"
+	type="text/javascript"></script>
+<script src="${springPath}/static/showLoading/jquery.showLoading.min.js"></script>
+<script src="${springPath}/static/js/wfjlgl/wfjlcx.js"></script>
+<script
+	src="${springPath}/static/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- the jScrollPane script -->
+<script
+	src="https://cdn.bootcss.com/jquery.nicescroll/3.7.6/jquery.nicescroll.js"></script>
+<script type="text/javascript"
+	src="${springPath}/static/js/wfjlgl/plugins/jcarousellite.js"></script>
+<script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp"></script>
+<input type="hidden" id="hidden_kssj" value="${startTime}" />
+<input type="hidden" id="hidden_jssj" value="${endTime}" />
+<input type="hidden" id="hidden_param" value="${param}" />
+</html>

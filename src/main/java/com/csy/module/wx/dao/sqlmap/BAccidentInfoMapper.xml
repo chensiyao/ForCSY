@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csy.module.wx.dao.BAccidentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.csy.module.wx.entity.BAccidentInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fk_wx_openid" property="fkWxOpenid" jdbcType="VARCHAR" />
+    <result column="occurrence_time" property="occurrenceTime" jdbcType="TIMESTAMP" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="duty" property="duty" jdbcType="VARCHAR" />
+    <result column="live_image" property="liveImage" jdbcType="VARCHAR" />
+    <result column="live_voice" property="liveVoice" jdbcType="VARCHAR" />
+    <result column="upload_time" property="uploadTime" jdbcType="TIMESTAMP" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="imgReUpload_index" property="imgreuploadIndex" jdbcType="VARCHAR" />
+    <result column="imgReUploaded_index" property="imgreuploadedIndex" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fk_wx_openid, occurrence_time, longitude, latitude, duty, live_image, live_voice, 
+    upload_time, description, imgReUpload_index, imgReUploaded_index
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BAccidentInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from b_accident_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_accident_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_accident_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.csy.module.wx.entity.BAccidentInfoExample" >
+    delete from b_accident_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.csy.module.wx.entity.BAccidentInfo" >
+    insert into b_accident_info (id, fk_wx_openid, occurrence_time, 
+      longitude, latitude, duty, 
+      live_image, live_voice, upload_time, 
+      description, imgReUpload_index, imgReUploaded_index
+      )
+    values (#{id,jdbcType=VARCHAR}, #{fkWxOpenid,jdbcType=VARCHAR}, #{occurrenceTime,jdbcType=TIMESTAMP}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR}, 
+      #{liveImage,jdbcType=VARCHAR}, #{liveVoice,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, 
+      #{description,jdbcType=VARCHAR}, #{imgreuploadIndex,jdbcType=VARCHAR}, #{imgreuploadedIndex,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.csy.module.wx.entity.BAccidentInfo" >
+    insert into b_accident_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkWxOpenid != null" >
+        fk_wx_openid,
+      </if>
+      <if test="occurrenceTime != null" >
+        occurrence_time,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="duty != null" >
+        duty,
+      </if>
+      <if test="liveImage != null" >
+        live_image,
+      </if>
+      <if test="liveVoice != null" >
+        live_voice,
+      </if>
+      <if test="uploadTime != null" >
+        upload_time,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="imgreuploadIndex != null" >
+        imgReUpload_index,
+      </if>
+      <if test="imgreuploadedIndex != null" >
+        imgReUploaded_index,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fkWxOpenid != null" >
+        #{fkWxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="occurrenceTime != null" >
+        #{occurrenceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="liveImage != null" >
+        #{liveImage,jdbcType=VARCHAR},
+      </if>
+      <if test="liveVoice != null" >
+        #{liveVoice,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imgreuploadIndex != null" >
+        #{imgreuploadIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="imgreuploadedIndex != null" >
+        #{imgreuploadedIndex,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.csy.module.wx.entity.BAccidentInfoExample" resultType="java.lang.Integer" >
+    select count(*) from b_accident_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update b_accident_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkWxOpenid != null" >
+        fk_wx_openid = #{record.fkWxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.occurrenceTime != null" >
+        occurrence_time = #{record.occurrenceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.duty != null" >
+        duty = #{record.duty,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liveImage != null" >
+        live_image = #{record.liveImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liveVoice != null" >
+        live_voice = #{record.liveVoice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.uploadTime != null" >
+        upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgreuploadIndex != null" >
+        imgReUpload_index = #{record.imgreuploadIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgreuploadedIndex != null" >
+        imgReUploaded_index = #{record.imgreuploadedIndex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update b_accident_info
+    set id = #{record.id,jdbcType=VARCHAR},
+      fk_wx_openid = #{record.fkWxOpenid,jdbcType=VARCHAR},
+      occurrence_time = #{record.occurrenceTime,jdbcType=TIMESTAMP},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      duty = #{record.duty,jdbcType=VARCHAR},
+      live_image = #{record.liveImage,jdbcType=VARCHAR},
+      live_voice = #{record.liveVoice,jdbcType=VARCHAR},
+      upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
+      description = #{record.description,jdbcType=VARCHAR},
+      imgReUpload_index = #{record.imgreuploadIndex,jdbcType=VARCHAR},
+      imgReUploaded_index = #{record.imgreuploadedIndex,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csy.module.wx.entity.BAccidentInfo" >
+    update b_accident_info
+    <set >
+      <if test="fkWxOpenid != null" >
+        fk_wx_openid = #{fkWxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="occurrenceTime != null" >
+        occurrence_time = #{occurrenceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="duty != null" >
+        duty = #{duty,jdbcType=VARCHAR},
+      </if>
+      <if test="liveImage != null" >
+        live_image = #{liveImage,jdbcType=VARCHAR},
+      </if>
+      <if test="liveVoice != null" >
+        live_voice = #{liveVoice,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null" >
+        upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="imgreuploadIndex != null" >
+        imgReUpload_index = #{imgreuploadIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="imgreuploadedIndex != null" >
+        imgReUploaded_index = #{imgreuploadedIndex,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csy.module.wx.entity.BAccidentInfo" >
+    update b_accident_info
+    set fk_wx_openid = #{fkWxOpenid,jdbcType=VARCHAR},
+      occurrence_time = #{occurrenceTime,jdbcType=TIMESTAMP},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      duty = #{duty,jdbcType=VARCHAR},
+      live_image = #{liveImage,jdbcType=VARCHAR},
+      live_voice = #{liveVoice,jdbcType=VARCHAR},
+      upload_time = #{uploadTime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      imgReUpload_index = #{imgreuploadIndex,jdbcType=VARCHAR},
+      imgReUploaded_index = #{imgreuploadedIndex,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectBysj" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BAccidentInfo" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_accident_info
+    <where>
+    	<if test="description != null and description != ''" >
+        	and occurrence_time &gt;= #{description,jdbcType=VARCHAR}
+      	</if>
+      	<if test="liveVoice != null and liveVoice != ''" >
+        	and occurrence_time &lt;= #{liveVoice,jdbcType=VARCHAR}
+      	</if>
+    </where>
+    order by occurrence_time desc
+  </select>
+</mapper>

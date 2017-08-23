@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=9" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+<title>反馈意见查询</title>
+<link rel="stylesheet" href="${springPath}/static/css/common/easyui_v1.0.css" />
+<link rel="stylesheet" href="${springPath}/static/showLoading/showLoading.css"/>
+<link rel="stylesheet" href="${springPath}/static/css/common/fishBone.css" />
+<link rel="stylesheet" href="${springPath}/static/plugins/jquery/jquery.alert.css" />
+<link rel="stylesheet" href="${springPath}/static/css/common/ued.css"/>
+<script type="text/javascript" src="${springPath}/static/plugins/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="${springPath}/static/plugins/jquery/dist/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${springPath}/static/plugins/jquery/dist/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${springPath}/static/plugins/jquery/dist/jquery.SuperSlide.2.1.1.js"></script>
+<script type="text/javascript" src="${springPath}/static/DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="${springPath}/static/plugins/jquery/jquery.alert.js"></script>
+<script type="text/javascript" src="${springPath}/static/js/common/common.js"></script>
+<script src="${springPath}/static/showLoading/jquery.showLoading.min.js"></script>
+<script type="text/javascript" src="${springPath}/static/js/lose/fishBone.js"></script>
+<script type="text/javascript" src="${springPath}/static/js/lose/fkyjcx.js"></script>
+</head>
+<body>
+	<div class="whole-div">
+		<div class="main-top" style="float:left;border: 1px solid #d1d1d1;width: 99.6%;">
+			<div class="titleDiv" style="text-align: center;">
+				<span class="pageTitle">反馈意见查询</span>
+			</div>
+			<div id="dataGrid">
+				<table class="znjt-search-table">
+					<tr>
+						<td width="5%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
+							开始时间
+						</td>
+						<td width="19%">
+							<input type="text" id="kssj" name="kssj" class="znjt-input-text display-inline-block date-icon" style="width:180px;margin-left:6px;"  value='${startTime}' data-inputmask="'alias':'yyyy-MM-dd HH:mm:ss'"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'jssj\')}' })"/>
+						</td>
+						<td width="5%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
+							结束时间
+						</td>
+						<td width="19%">
+							<input type="text" id="jssj" name="jssj" class="znjt-input-text display-inline-block date-icon" style="width:180px;margin-left:6px;" value='${endTime}' data-inputmask="'alias':'yyyy-MM-dd HH:mm:ss'" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'kssj\')}' })"/>
+						</td>
+						<td width="5%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">微信号</td>
+						<td width="18%">
+							<input type="text" id="wxh" name="wxh" class="znjt-input-text display-inline-block"  style="width:180px;margin-left:6px;"/>
+						</td>
+						<td width="5%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
+							反馈类型
+						</td>
+						<td width="14%" style="padding-left: 10px;">
+				 			<select style='width:150px;height:30px;' class="znjt-input-text display-inline-block" id="fklx" name = "fklx">
+								<option value="-1" selected>--全部--</option>
+								<option value="1">系统异常</option>
+								<option value="2">优化建议</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td colspan="2" class="znjt-text-align-center">
+							<input id="vehicleSearchBtn" type="button" value="查询" class="znjt-btn-s-1" style="margin-right: 20px; " /> 
+							<input id="vehicleSearchResetBtn" type="button" value="重置" class="znjt-btn-s-1" style="margin-right: 20px; "/>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="main-top1" style="float:left;border: 1px solid #d1d1d1;">
+				<div class="titleDiv" style="text-align: center;">
+					<span class="pageTitle" style="padding-left: 5%;">反馈意见查询列表</span>
+					<div style="float: right;padding-top: 5px;">
+						<input id="viewType" class="easyui-switchbutton" checked data-options="width:70,onText:'鱼骨图',offText:'列表',onChange:switchView" />
+					</div>
+				</div>
+				<div id='divList' style="border: 1px solid #d1d1d1;display: none;">
+					<table id="divTable" style="width: 100%; height: 100%;table-layout:fixed ;">
+					</table>
+				</div>
+				<div class="container">
+					<div class="fishBone"></div>
+				</div>
+			</div>
+	</div>
+	<div id="fkyjxx" title="反馈详细信息" style="text-align:center;display: none;background-color: #fff;border: 1px solid #d1d1d1;">
+	</div> 
+</body>
+<input type="hidden" id="hidden_kssj" value="${startTime}" />
+<input type="hidden" id="hidden_jssj" value="${endTime}" />
+</html>

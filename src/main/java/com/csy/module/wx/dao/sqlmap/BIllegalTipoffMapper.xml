@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.csy.module.wx.dao.BIllegalTipoffMapper" >
+  <resultMap id="BaseResultMap" type="com.csy.module.wx.entity.BIllegalTipoff" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="fk_wx_openid" property="fkWxOpenid" jdbcType="VARCHAR" />
+    <result column="plate_number" property="plateNumber" jdbcType="VARCHAR" />
+    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
+    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
+    <result column="illegal_position" property="illegalPosition" jdbcType="VARCHAR" />
+    <result column="illegal_act" property="illegalAct" jdbcType="VARCHAR" />
+    <result column="illegal_images" property="illegalImages" jdbcType="VARCHAR" />
+    <result column="occurrence_time" property="occurrenceTime" jdbcType="TIMESTAMP" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="idcard" property="idcard" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, fk_wx_openid, plate_number, longitude, latitude, illegal_position, illegal_act, 
+    illegal_images, occurrence_time, status, name, idcard, phone
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BIllegalTipoffExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from b_illegal_tipoff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from b_illegal_tipoff
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from b_illegal_tipoff
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.csy.module.wx.entity.BIllegalTipoffExample" >
+    delete from b_illegal_tipoff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.csy.module.wx.entity.BIllegalTipoff" >
+    insert into b_illegal_tipoff (id, fk_wx_openid, plate_number, 
+      longitude, latitude, illegal_position, 
+      illegal_act, illegal_images, occurrence_time, 
+      status, name, idcard, 
+      phone)
+    values (#{id,jdbcType=VARCHAR}, #{fkWxOpenid,jdbcType=VARCHAR}, #{plateNumber,jdbcType=VARCHAR}, 
+      #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{illegalPosition,jdbcType=VARCHAR}, 
+      #{illegalAct,jdbcType=VARCHAR}, #{illegalImages,jdbcType=VARCHAR}, #{occurrenceTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.csy.module.wx.entity.BIllegalTipoff" >
+    insert into b_illegal_tipoff
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="fkWxOpenid != null" >
+        fk_wx_openid,
+      </if>
+      <if test="plateNumber != null" >
+        plate_number,
+      </if>
+      <if test="longitude != null" >
+        longitude,
+      </if>
+      <if test="latitude != null" >
+        latitude,
+      </if>
+      <if test="illegalPosition != null" >
+        illegal_position,
+      </if>
+      <if test="illegalAct != null" >
+        illegal_act,
+      </if>
+      <if test="illegalImages != null" >
+        illegal_images,
+      </if>
+      <if test="occurrenceTime != null" >
+        occurrence_time,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="idcard != null" >
+        idcard,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fkWxOpenid != null" >
+        #{fkWxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null" >
+        #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalPosition != null" >
+        #{illegalPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalAct != null" >
+        #{illegalAct,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalImages != null" >
+        #{illegalImages,jdbcType=VARCHAR},
+      </if>
+      <if test="occurrenceTime != null" >
+        #{occurrenceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.csy.module.wx.entity.BIllegalTipoffExample" resultType="java.lang.Integer" >
+    select count(*) from b_illegal_tipoff
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update b_illegal_tipoff
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fkWxOpenid != null" >
+        fk_wx_openid = #{record.fkWxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plateNumber != null" >
+        plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.longitude != null" >
+        longitude = #{record.longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.latitude != null" >
+        latitude = #{record.latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illegalPosition != null" >
+        illegal_position = #{record.illegalPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illegalAct != null" >
+        illegal_act = #{record.illegalAct,jdbcType=VARCHAR},
+      </if>
+      <if test="record.illegalImages != null" >
+        illegal_images = #{record.illegalImages,jdbcType=VARCHAR},
+      </if>
+      <if test="record.occurrenceTime != null" >
+        occurrence_time = #{record.occurrenceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idcard != null" >
+        idcard = #{record.idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phone != null" >
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update b_illegal_tipoff
+    set id = #{record.id,jdbcType=VARCHAR},
+      fk_wx_openid = #{record.fkWxOpenid,jdbcType=VARCHAR},
+      plate_number = #{record.plateNumber,jdbcType=VARCHAR},
+      longitude = #{record.longitude,jdbcType=VARCHAR},
+      latitude = #{record.latitude,jdbcType=VARCHAR},
+      illegal_position = #{record.illegalPosition,jdbcType=VARCHAR},
+      illegal_act = #{record.illegalAct,jdbcType=VARCHAR},
+      illegal_images = #{record.illegalImages,jdbcType=VARCHAR},
+      occurrence_time = #{record.occurrenceTime,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      idcard = #{record.idcard,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.csy.module.wx.entity.BIllegalTipoff" >
+    update b_illegal_tipoff
+    <set >
+      <if test="fkWxOpenid != null" >
+        fk_wx_openid = #{fkWxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="plateNumber != null" >
+        plate_number = #{plateNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalPosition != null" >
+        illegal_position = #{illegalPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalAct != null" >
+        illegal_act = #{illegalAct,jdbcType=VARCHAR},
+      </if>
+      <if test="illegalImages != null" >
+        illegal_images = #{illegalImages,jdbcType=VARCHAR},
+      </if>
+      <if test="occurrenceTime != null" >
+        occurrence_time = #{occurrenceTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null" >
+        idcard = #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.csy.module.wx.entity.BIllegalTipoff" >
+    update b_illegal_tipoff
+    set fk_wx_openid = #{fkWxOpenid,jdbcType=VARCHAR},
+      plate_number = #{plateNumber,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      illegal_position = #{illegalPosition,jdbcType=VARCHAR},
+      illegal_act = #{illegalAct,jdbcType=VARCHAR},
+      illegal_images = #{illegalImages,jdbcType=VARCHAR},
+      occurrence_time = #{occurrenceTime,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      idcard = #{idcard,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectTipoffBysj" resultMap="BaseResultMap" parameterType="String">
+    select 
+    <include refid="Base_Column_List" />
+    from b_illegal_tipoff
+    <where>
+    	<if test="kssj != null and kssj != ''" >
+        	and occurrence_time &gt;= #{kssj,jdbcType=VARCHAR}
+      	</if>
+      	<if test="jssj != null and jssj != ''" >
+        	and occurrence_time &lt;= #{jssj,jdbcType=VARCHAR}
+      	</if>
+      	<if test="status != null and status != ''" >
+        	and status = #{status,jdbcType=VARCHAR}
+      	</if>
+    </where>
+    order by occurrence_time desc
+  
+  
+  </select>
+  
+  <!-- <update id="updateState" parameterType="String" >
+   update b_illegal_tipoff
+  </update> -->
+</mapper>

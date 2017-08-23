@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">   
+	
+	
+	<!-- 定时任务Bean -->
+	<bean id="autoRefreshBasicAcessTokenTask" class="com.csy.util.wx.AutoRefreshBasicAcessToken" />
+	
+	<!-- 定义调用对象和调用对象的方法 -->
+	<bean id="autoRefreshBasicAcessTokenTaskDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="autoRefreshBasicAcessTokenTask" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="reStoreAccessToken" />
+		<!-- 是否允许任务并发执行。当值为false时，表示必须等到前一个线程处理完毕后才再启一个新的线程 -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<bean id="autoRefreshBasicAcessTokenTaskTrigger" class="org.springframework.scheduling.quartz.SimpleTriggerFactoryBean">
+		<property name="jobDetail" ref="autoRefreshBasicAcessTokenTaskDetail" />
+		<property name="startDelay" value="0" /><!-- 调度工厂实例化后，经过0秒开始执行调度 -->
+		<property name="repeatInterval" value="7000000" /><!-- access_token有效期为7200秒, 后台设置7000秒重新获取 -->
+	</bean>
+	
+	
+	<!-- 总管理类：如果lazy-init='false'，那么容器启动后就会执行调度程序 -->
+	<!-- 如果lazy-init='true'，则需要实例化该bean才能执行调度程序 -->
+	<bean name="jobSchFactory" 
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="autoRefreshBasicAcessTokenTaskTrigger" />
+			</list>
+		</property>
+		<property name="autoStartup" value="true"/>
+	</bean>
+	
+</beans>

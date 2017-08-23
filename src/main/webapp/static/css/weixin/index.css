@@ -1,0 +1,192 @@
+html, body{
+    height: 100%;
+    -webkit-tap-highlight-color: transparent
+}
+
+body {
+    font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.main{
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	right: 10%;
+	bottom: 10%;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.mainBg{
+	position: relative;
+	left: 50%;
+	width: 80%;
+	margin-left: -40%;
+}
+
+.main .button-sp-area{
+	margin-top: 10%;
+}
+
+.button-sp-area .weui-btn{
+	margin-bottom: 10%;
+	height: 50px;
+	border-radius: 25px;
+}
+
+.button-sp-area .weui-btn:after{
+	border: none;
+}
+
+.button-sp-area .weui-btn.btn1{
+	border: 3px solid rgba(102,179,73,0.4);
+}
+
+.button-sp-area .weui-btn .content{
+	position: relative;
+	z-index: 10;
+}
+
+.button-sp-area .weui-btn.btn1:after{
+	background-image: -webkit-linear-gradient(bottom,rgba(102,179,73,1), rgba(123,208,91,1));
+  	background-image: -o-linear-gradient(bottom,rgba(102,179,73,1), rgba(123,208,91,1));
+  	background-image: -moz-linear-gradient(bottom,rgba(102,179,73,1), rgba(123,208,91,1));
+  	background-image: linear-gradient(to bottom, rgba(102,179,73,1), rgba(123,208,91,1));
+}
+
+.button-sp-area .weui-btn.btn2{
+	border: 3px solid rgba(206,216,231,0.4);
+}
+
+.button-sp-area .weui-btn.btn2:after{
+	background: -webkit-linear-gradient(bottom,rgba(206,216,231,1), rgba(237,240,246,1));
+  	background: -o-linear-gradient(bottom,rgba(206,216,231,1), rgba(237,240,246,1));
+  	background: -moz-linear-gradient(bottom,rgba(206,216,231,1), rgba(237,240,246,1));
+  	background: linear-gradient(to bottom, rgba(206,216,231,1), rgba(237,240,246,1));
+}
+
+.button-sp-area .weui-btn.btn2 .content{
+	color: #000;
+}
+
+
+div.dialog{
+	position: absolute;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+	animation-duration: 1s; 
+	animation-fill-mode: forwards;
+	z-index: 999;
+}
+
+div.dialog.initHideen{
+	z-index: -1;
+	display: none;
+}
+
+div.dialog.showIn{
+	animation-name: showIn;
+}
+div.dialog.showOut{
+    animation-name: showOut;
+}
+
+div.dialog .ui_mask{
+	background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+}
+
+div.dialog .ui_dialog_title{
+	position: absolute;
+    max-width: 400px;
+    margin: 0 auto;
+    height: 10%;
+    width: auto;
+    left: 10%;
+    right: 10%;
+}
+
+div.dialog .ui_dialog_title .ui_dialog_title_icon{
+	position: absolute;
+	width: 2px;
+	top: 0;
+	bottom: 0;
+	border-color: rgba(0, 0, 0, 0.6) rgba(0, 0, 0, 0.6) #fff rgba(0, 0, 0, 0.6);
+	border-style: none solid solid solid;
+	border-width: 0 0.5em 0.5em 0.5em;
+	background-color: #fff;
+}
+
+div.dialog.showOut .ui_dialog_title .ui_dialog_title_icon{
+	border-color: #fff;
+}
+
+div.ui_dialog_title_icon.icon_left{
+	left: 15%;
+}
+
+div.ui_dialog_title_icon.icon_right{
+	right: 15%;
+}
+
+div.dialog .ui_dialog{
+	position: absolute;
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+    max-width: 400px;
+    margin: 0 auto;
+    height: 80%;
+    background-color: #fff;
+    border-radius: 3px;
+    outline: 0;
+}
+
+div.dialog .ui_dialog .ui_dialog_hd{
+	padding: 1.3em 1.6em 0.5em;
+	text-align: center;
+}
+
+div.dialog .ui_dialog .ui_dialog_bd{
+    padding: 0 1.2em 0.8em;
+    font-size: 14px;
+    word-wrap: break-word;
+    color: #888;
+    position: absolute;
+    bottom: 0.2em;
+    top: 4em;
+    overflow: auto;
+}
+
+div.dialog .ui_dialog .ui_dialog_bd p{
+	text-indent: 2em;
+    line-height: 1.5;
+	margin: 0 0 0.5em 0;
+}
+
+div.dialog .ui_dialog .ui_dialog_ft{
+    position: absolute;
+    bottom: 0;
+    height: 30px;
+}
+
+div.button-area{
+	margin: 0 auto;
+    text-align: center;
+}
+
+@keyframes showIn{
+	0%   {bottom: 100%;}
+    100% {bottom: 0%;}
+}
+
+@keyframes showOut{
+	0%   {bottom: 0%;}
+    100% {bottom: 100%;}
+}

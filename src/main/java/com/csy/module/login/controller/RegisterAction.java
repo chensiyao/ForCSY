@@ -1,6 +1,7 @@
 package com.csy.module.login.controller;
 
 import java.io.IOException;
+import java.security.interfaces.RSAPrivateKey;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import com.csy.module.login.service.service.RegisterService;
 import com.csy.module.user.entity.BUserAccount;
 import com.csy.module.user.service.service.BuserAccountService;
 import com.csy.util.StringUtils;
+import com.csy.util.algorithm.RSAUtil;
 
 @Controller
 public class RegisterAction {
@@ -34,8 +36,13 @@ public class RegisterAction {
 	
 	
 	@RequestMapping("/register")
-	public ModelAndView register(){
-		return new ModelAndView("login/register");
+	public ModelAndView register(HttpServletRequest req) throws Exception{
+		RSAUtil.generateKeyPair();
+		Map<String, Object> param = new HashMap<String, Object>();
+		req.getSession(true).setAttribute("privateKey", RSAUtil.PRIVATEKEY);
+		param.put("publicKey", RSAUtil.PUBLICKEY.getModulus().toString(16));
+		param.put("publicExponent", RSAUtil.PUBLICKEY.getPublicExponent().toString(16));
+		return new ModelAndView("login/register",param);
 	}
 	
 	@RequestMapping("/register/emailAccount")
@@ -43,6 +50,12 @@ public class RegisterAction {
 			,BUserAccount account) throws IOException{
 		JSONObject jsonObject = new JSONObject();
 		try {
+			byte[] en_result = RSAUtil.hexStringToBytes(account.getPassword()); 
+			byte[] de_result = RSAUtil.decrypt((RSAPrivateKey)req.getSession(true).getAttribute("privateKey"), en_result);  
+			StringBuffer sb = new StringBuffer();  
+			sb.append(new String(de_result));  
+			String descPassword = sb.reverse().toString();
+			account.setPassword(descPassword);
 			registerService.insertAccount(account);
 			jsonObject.put("success", "success");
 			jsonObject.put("account", account.getAccount());

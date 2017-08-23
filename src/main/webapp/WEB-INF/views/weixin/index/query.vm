@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>微查询</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<link href="${springPath}/static/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+		<!--[if lt IE 9]>
+           <script src="${springPath}/static/plugins/patch/html5shiv.js"></script>
+           <script src="${springPath}/static/plugins/patch/respond.min.js"></script>
+        <![endif]-->
+		<style type="text/css">
+			
+			html,body{
+				background: #F0F0F0;
+			}
+			
+			.carousel-inner .bg{
+				height: 180px;
+				background-size: auto 100%;
+				background-position: center center;
+				background-repeat: no-repeat;
+			}
+			
+			.titleLine{
+				line-height: 34px;
+				padding-left: 1em;
+				font-size: 14px;
+				color: #b1b1b1;
+			}
+			
+			.menuBody{
+				background: #fff;
+				width: 100%;
+			}
+			
+			.menuBody tr{
+				height: 124px;
+			}
+			
+			.menuBody tr:first-child td{
+				border-top: none;
+			}
+			
+			.menuBody tr:last-child td{
+				border-bottom: none;
+			}
+			
+			.menuBody tr td:first-child{
+				border-left: none;
+			}
+			
+			.menuBody tr td:last-child{
+				border-right: none;
+			}
+			
+			.menuBody td{
+				border-collapse:collapse;
+				width: 33.33%;
+				text-align: center;
+				border: 3px solid #F0F0F0;
+			}
+			
+			.menuBody td a{
+				width: 100%;
+				padding: 25px 0px;
+				display: inline-block;
+			}
+			
+			.menuBody td .icon{
+				width: 40px;
+				height: 40px;
+				display: inline-block;
+				background-size: 100% 100%;
+				border-radius: 8px;
+			}
+			.menuBody td .desc{
+				margin-top: 10px;
+				line-height: 20px;
+				color: #444;
+				text-decoration: none !important;
+			}
+        </style>
+	</head>
+	<body>
+		<div id="carousel-example-generic" class="carousel slide">
+    		<ol class="carousel-indicators">
+    			<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+    			<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+    			<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+    		</ol>
+    		<div class="carousel-inner" role="listbox">
+    			<div class="item active">
+                    <div class="bg" style="background-image:url('${springPath}/static/img/weixin/index/banner.png')"></div>
+    				<div class="carousel-caption">你好</div>
+    			</div>
+    			<div class="item">
+					<div class="bg" style="background-image:url('${springPath}/static/img/weixin/index/banner.png')"></div>
+    				<div class="carousel-caption">HELLO</div>
+    			</div>
+    			<div class="item">
+					<div class="bg" style="background-image:url('${springPath}/static/img/weixin/index/banner.png')"></div>
+    				<div class="carousel-caption">こんにちは</div>
+    			</div>
+        
+    			<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+    				<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+    				<span class="sr-only">上一个</span>
+    			</a>
+    			<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+    				<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+    				<span class="sr-only">下一个</span>
+    			</a>
+    		</div>
+        </div>
+		<div class="titleLine">微查询</div>
+        <table class="menuBody">
+            <tr>
+				<td>
+					<a href="#">
+    					<div class="icon icon1" style="background-image:url('${springPath}/static/img/weixin/index/icon1_1.png');background-color:#90ee5d"></div>
+                        <div class="desc">违法查询</div>
+                    </a>
+				</td>
+				<td>
+					<a href="#">
+    					<div class="icon icon2" style="background-image:url('${springPath}/static/img/weixin/index/icon1_2.png');background-color:#ff8c6b"></div>
+                        <div class="desc">实时路况</div>
+                    </a>
+				</td>
+				<td>
+					<a href="#">
+    					<div class="icon icon3" style="background-image:url('${springPath}/static/img/weixin/index/icon1_3.png');background-color:#59f1ff"></div>
+                        <div class="desc">车检计算器</div>
+                    </a>
+				</td>
+			</tr>
+			<tr>
+				
+				<td>
+					<a href="#">
+    					<div class="icon icon4" style="background-image:url('${springPath}/static/img/weixin/index/icon1_4.png');background-color:#5b83eb"></div>
+                        <div class="desc">电子警察</div>
+                    </a>
+				</td>
+				<td>
+					<a href="#">
+    					<div class="icon icon5" style="background-image:url('${springPath}/static/img/weixin/index/icon1_5.png');background-color:#5edf65"></div>
+                        <div class="desc">记分查询</div>
+                    </a>
+				</td>
+				<td>
+					<a href="#">
+    					<div class="icon icon6" style="background-image:url('${springPath}/static/img/weixin/index/icon1_6.png');background-color:#8cfa8a"></div>
+                        <div class="desc">微事故处理介绍</div>
+                    </a>
+				</td>
+			</tr>
+			<tr>
+				
+				<td>
+					<a href="#">
+    					<div class="icon icon7" style="background-image:url('${springPath}/static/img/weixin/index/icon1_7.png');background-color:#ffaf59"></div>
+                        <div class="desc">事故处理视频</div>
+                    </a>
+				</td>
+				<td>
+					<a href="#">
+    					<div class="icon icon8" style="background-image:url('${springPath}/static/img/weixin/index/icon1_8.png');background-color:#59d3ff"></div>
+                        <div class="desc">审验学习攻略</div>
+                    </a>
+				</td>
+				<td>
+				</td>
+			</tr>
+		</table>
+		
+		<script src="${springPath}/static/plugins/jquery/dist/jquery.min.js"></script>
+		<script src="${springPath}/static/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+	</body>
+</html>
+	
