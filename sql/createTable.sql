@@ -295,3 +295,20 @@ CREATE TABLE `csy`.`b_qj_log` (
   `createtime` DATETIME NULL DEFAULT CURRENT_TIMESTAMP COMMENT '插入时间',
   PRIMARY KEY (`id`))
 COMMENT = '全局日志操作表';
+
+----设备故障上报表2017-9-1
+DROP TABLE IF EXISTS `b_breakdown_upload`;
+CREATE TABLE `b_breakdown_upload` (
+  `id` varchar(64) NOT NULL COMMENT '故障id',
+  `fk_wx_openid` varchar(64) NOT NULL DEFAULT '微信openid',
+  `phone` varchar(16) DEFAULT NULL COMMENT '联系电话',
+  `upload_time` datetime DEFAULT NULL COMMENT '上传时间',
+  `upload_position` varchar(128) DEFAULT NULL COMMENT '上传地点',
+  `longitude` varchar(128) DEFAULT NULL COMMENT '经度',
+  `latitude` varchar(128) DEFAULT NULL COMMENT '纬度',
+  `fault_description` varchar(128) DEFAULT NULL COMMENT '故障描述',
+  `fault_images` varchar(1024) DEFAULT NULL COMMENT '故障图片',
+  `audit_status` varchar(16) DEFAULT NULL COMMENT '审核状态',
+  `process_status` varchar(16) DEFAULT NULL COMMENT '处理状态',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
