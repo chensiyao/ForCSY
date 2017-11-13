@@ -31,7 +31,25 @@ public class DriverAccident {
 	private String imagePath;
 	private String accdientId;
 	private String imageUploadIndex;
+	private String imgreuploadedIndex;
+	private String isvalid;
 	private List<BDriverInfo> bDriverInfos = new ArrayList<BDriverInfo>();
+	public String getImgreuploadedIndex() {
+		return imgreuploadedIndex;
+	}
+
+	public void setImgreuploadedIndex(String imgreuploadedIndex) {
+		this.imgreuploadedIndex = imgreuploadedIndex;
+	}
+
+	public String getIsvalid() {
+		return isvalid;
+	}
+
+	public void setIsvalid(String isvalid) {
+		this.isvalid = isvalid;
+	}
+
 	public String getImageUploadIndex() {
 		return imageUploadIndex;
 	}

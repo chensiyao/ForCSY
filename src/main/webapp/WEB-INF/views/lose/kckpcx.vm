@@ -63,19 +63,19 @@
 						<td width="8%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
 							开始时间
 						</td>
-						<td  width="15%" >
+						<td  width="14%" >
 							<input type="text" id="kssj" name="kssj" class="znjt-input-text display-inline-block date-icon" style="width:180px;margin-left:6px;"  value='${startTime}' data-inputmask="'alias':'yyyy-MM-dd HH:mm:ss'"  onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',maxDate:'#F{$dp.$D(\'jssj\')}' })"/>
 						</td>
 						<td  width="8%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
 							结束时间
 						</td>
-						<td  width="15%" >
+						<td  width="14%" >
 							<input type="text" id="jssj" name="jssj" class="znjt-input-text display-inline-block date-icon" style="width:180px;margin-left:6px;" value='${endTime}' data-inputmask="'alias':'yyyy-MM-dd HH:mm:ss'" onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'#F{$dp.$D(\'kssj\')}' })"/>
 						</td>
 						<td width="8%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
 							号牌号码
 						</td>
-						<td  width="10%" >
+						<td  width="9%" style="padding-left: 8px;">
 						 	<div id="queryHphm" style="width:180px;height: 100%">
 							 	<div class="hpbzDiv" id = "values" onclick="Switch(this)"></div>
 							 	<div class="hpbzAllDiv">
@@ -84,15 +84,25 @@
 										</select>
 							 	</div>
 							 	<div class="hmInputDiv">
-							 		<input id = "hphmInput" style="width:90px;height: 30px;line-height:30px;"/>
+							 		<input id = "hphmInput" style="width:95px;height: 30px;line-height:30px;"/>
 							 	</div>
 						 	</div>
 						</td>
 						<td  width="8%" style="margin-top: 10px;" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
 							微信号
 						</td>
-						<td width="10%">
-							<input type="text" id="wxh" name="wxh" class="znjt-input-text display-inline-block"  style="width:180px;margin-left:6px;"/>
+						<td width="12%">
+							<input type="text" id="wxh" name="wxh" class="znjt-input-text display-inline-block"  style="width:150px;margin-left:6px;"/>
+						</td>
+						<td width="8%" class="znjt-search-label znjt-color-background-5 znjt-text-align-center">
+							事故有效
+						</td>
+						<td width="10%" style="padding-left: 8px;">
+				 			<select style='width:120px;height:30px;' class="znjt-input-text display-inline-block" id="sgyx" name = "sgyx">
+								<option value="-1" selected>--全部--</option>
+								<option value="0">有效</option>
+								<option value="1">无效</option>
+							</select>
 						</td>
 					</tr>
 					<tr>

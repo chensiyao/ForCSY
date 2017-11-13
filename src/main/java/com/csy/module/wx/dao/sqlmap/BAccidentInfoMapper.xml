@@ -14,6 +14,7 @@
     <result column="description" property="description" jdbcType="VARCHAR" />
     <result column="imgReUpload_index" property="imgreuploadIndex" jdbcType="VARCHAR" />
     <result column="imgReUploaded_index" property="imgreuploadedIndex" jdbcType="VARCHAR" />
+    <result column="isvalid" property="isvalid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,7 +76,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, fk_wx_openid, occurrence_time, longitude, latitude, duty, live_image, live_voice, 
-    upload_time, description, imgReUpload_index, imgReUploaded_index
+    upload_time, description, imgReUpload_index, imgReUploaded_index,isvalid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.csy.module.wx.entity.BAccidentInfoExample" >
     select
@@ -112,12 +113,13 @@
     insert into b_accident_info (id, fk_wx_openid, occurrence_time, 
       longitude, latitude, duty, 
       live_image, live_voice, upload_time, 
-      description, imgReUpload_index, imgReUploaded_index
+      description, imgReUpload_index, imgReUploaded_index,isvalid
       )
     values (#{id,jdbcType=VARCHAR}, #{fkWxOpenid,jdbcType=VARCHAR}, #{occurrenceTime,jdbcType=TIMESTAMP}, 
       #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{duty,jdbcType=VARCHAR}, 
       #{liveImage,jdbcType=VARCHAR}, #{liveVoice,jdbcType=VARCHAR}, #{uploadTime,jdbcType=TIMESTAMP}, 
-      #{description,jdbcType=VARCHAR}, #{imgreuploadIndex,jdbcType=VARCHAR}, #{imgreuploadedIndex,jdbcType=VARCHAR}
+      #{description,jdbcType=VARCHAR}, #{imgreuploadIndex,jdbcType=VARCHAR}, #{imgreuploadedIndex,jdbcType=VARCHAR},
+      #{isvalid,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.csy.module.wx.entity.BAccidentInfo" >
@@ -159,6 +161,9 @@
       <if test="imgreuploadedIndex != null" >
         imgReUploaded_index,
       </if>
+      <if test="isvalid != null" >
+        isvalid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -196,6 +201,9 @@
       </if>
       <if test="imgreuploadedIndex != null" >
         #{imgreuploadedIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="isvalid != null" >
+        #{isvalid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -244,6 +252,9 @@
       <if test="record.imgreuploadedIndex != null" >
         imgReUploaded_index = #{record.imgreuploadedIndex,jdbcType=VARCHAR},
       </if>
+      <if test="record.isvalid != null" >
+        isvalid = #{record.isvalid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,7 +273,8 @@
       upload_time = #{record.uploadTime,jdbcType=TIMESTAMP},
       description = #{record.description,jdbcType=VARCHAR},
       imgReUpload_index = #{record.imgreuploadIndex,jdbcType=VARCHAR},
-      imgReUploaded_index = #{record.imgreuploadedIndex,jdbcType=VARCHAR}
+      imgReUploaded_index = #{record.imgreuploadedIndex,jdbcType=VARCHAR},
+      isvalid = #{record.isvalid,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -303,6 +315,9 @@
       <if test="imgreuploadedIndex != null" >
         imgReUploaded_index = #{imgreuploadedIndex,jdbcType=VARCHAR},
       </if>
+      <if test="isvalid != null" >
+        isvalid = #{isvalid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -318,7 +333,8 @@
       upload_time = #{uploadTime,jdbcType=TIMESTAMP},
       description = #{description,jdbcType=VARCHAR},
       imgReUpload_index = #{imgreuploadIndex,jdbcType=VARCHAR},
-      imgReUploaded_index = #{imgreuploadedIndex,jdbcType=VARCHAR}
+      imgReUploaded_index = #{imgreuploadedIndex,jdbcType=VARCHAR},
+      isvalid = #{isvalid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
@@ -333,6 +349,21 @@
       	<if test="liveVoice != null and liveVoice != ''" >
         	and occurrence_time &lt;= #{liveVoice,jdbcType=VARCHAR}
       	</if>
+      	<choose>
+    		<when test="isvalid != null and isvalid != -1">
+				<choose>
+					<when test="isvalid == 1">
+						and isvalid = '1'
+					</when>
+					<otherwise>
+						and (isvalid is null or isvalid = '')
+					</otherwise>
+				</choose>
+			</when>
+			<otherwise>
+				and (isvalid is null or isvalid = '1' or isvalid = '')
+			</otherwise>
+    	</choose>
     </where>
     order by occurrence_time desc
   </select>

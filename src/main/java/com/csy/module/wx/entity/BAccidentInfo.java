@@ -26,8 +26,18 @@ public class BAccidentInfo {
     private String imgreuploadIndex;
 
     private String imgreuploadedIndex;
+    
+    private String isvalid;
+    
+    public String getIsvalid() {
+		return isvalid;
+	}
 
-    public String getId() {
+	public void setIsvalid(String isvalid) {
+		this.isvalid = isvalid;
+	}
+
+	public String getId() {
         return id;
     }
 

@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.csy.module.wx.dto.DriverAccident;
 import com.csy.module.wx.entity.BAccidentDriver;
+import com.csy.module.wx.entity.BAccidentInfo;
 import com.csy.module.wx.entity.BWxFkyj;
 import com.csy.module.wx.service.service.BAccidentInfoService;
 import com.csy.module.wx.service.service.BWxFkyjService;
@@ -237,5 +238,25 @@ public class QuickLoseAction {
 		} catch (Exception e) {
 			logger.error("数据导出异常_"+filename, e);
 		}
+	}
+	/**
+	 * 说明：对无用事故进行废弃操作
+	 * 创建时间：2017-11-02 14:31
+	 * @author wangyonghui
+	 */
+	@RequestMapping("/abandonAccident.do")
+	public void abandonAccident(HttpServletRequest request, HttpServletResponse response,String accidentId){
+	    JSONObject jsonObject = new JSONObject();
+	    jsonObject.put("error", "");
+	    BAccidentInfo record = new BAccidentInfo();
+	    record.setId(accidentId);
+	    record.setIsvalid("1");
+	    try {
+	    	bAccidentInfoService.updateByPrimaryKeySelective(record);
+	    } catch (Exception e) {
+	      jsonObject.put("error", e);
+	      e.printStackTrace();
+	    }
+	    JSONUtil.writeJSONObjectToResponse(response, jsonObject);
 	}
 }

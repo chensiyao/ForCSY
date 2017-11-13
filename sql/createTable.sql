@@ -312,4 +312,5 @@ CREATE TABLE `b_failure_report` (
   `process_status` varchar(16) DEFAULT NULL COMMENT '处理状态',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
+----事故表增加字段（代表事故的有效性）
+Alter table b_accident_info add COLUMN isvalid VARCHAR(1);

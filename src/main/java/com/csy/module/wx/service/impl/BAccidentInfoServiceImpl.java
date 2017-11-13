@@ -36,8 +36,6 @@ import com.csy.util.wx.queue.FileQueue.FileDescription;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-import net.sf.json.JSONObject;
-
 /**
  * @author wangqiang
  * @date 2017-02-19
@@ -169,15 +167,16 @@ public class BAccidentInfoServiceImpl extends BaseService<BAccidentInfo, BAccide
 		BAccidentInfo bAccidentInfo = new BAccidentInfo();//事故对象
 		BWxUser user1 = new BWxUser();//微信用户对象
 		HashMap<String, String> map = new HashMap<String, String>();
-		if(accidentInfo.getKssj() != null  && accidentInfo.getKssj() != ""){
+		if(!StringUtils.isTrimEmpty(accidentInfo.getKssj())){
 			bAccidentInfo.setDescription(accidentInfo.getKssj());
 		}
-		if(accidentInfo.getJssj() != null  && accidentInfo.getJssj() != ""){
+		if(!StringUtils.isTrimEmpty(accidentInfo.getJssj())){
 			bAccidentInfo.setLiveVoice(accidentInfo.getJssj());
 		}
-		if(accidentInfo.getHphm() != null  && accidentInfo.getHphm() != ""){
+		if(!StringUtils.isTrimEmpty(accidentInfo.getHphm())){
 			map.put("hphm",accidentInfo.getHphm());
 		}
+		bAccidentInfo.setIsvalid(accidentInfo.getIsvalid());
 		bAccidentInfos = accidentDao.selectBysj(bAccidentInfo);
 		if(bAccidentInfos.size() > 0){
 			for(BAccidentInfo info : bAccidentInfos){
@@ -212,6 +211,7 @@ public class BAccidentInfoServiceImpl extends BaseService<BAccidentInfo, BAccide
 				accident.setLiveVoice(info.getLiveVoice());
 				accident.setWxid(info.getFkWxOpenid());
 				accident.setAccdientId(info.getId());
+				accident.setIsvalid(info.getIsvalid());
 				if(null != info.getImgreuploadIndex() && !"".equals(info.getImgreuploadIndex())){
 					accident.setImageUploadIndex(info.getImgreuploadIndex());
 				}
