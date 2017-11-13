@@ -25,7 +25,8 @@
             </div>
 		</div>
 		
-        <input type="hidden" id="isLogInFistTime" value="${isLogInFistTime}"></input>
+		<!-- <input type="hidden" id="isLogInFistTime" value="${isLogInFistTime}"></input> -->
+		<input type="hidden" id="isLogInFistTime" value="true"></input>
 		<div class="dialog initHideen showIn">
 			<div class="ui_mask"></div>
 			<div class="ui_dialog_title">
@@ -54,6 +55,15 @@
 					</p>
                     <p>
 						但是，有以上（1）、（5）、（6）项情形的，当事人可以在固定现场证据后，在确保安全的情况下将车辆移至路边等不妨碍交通的地方后报警。
+					</p>
+					
+                    <p>	在开始快速处理流程之前，请先完成以下步骤：<br/>
+						<strong>
+						  a、请在事故现场来车方向150米处摆放警示标志。<br/>
+						  b、请对事故现场自前向后、自后向前（事故车辆全景），碰撞部位（局部）分别拍照后将车移至路边应急车道。<br/>
+						  c、查验双方驾驶证、行驶证并拍照。<br/>
+						  d、进入平台界面按步骤操作上传。<br/>
+						</strong>
 					</p>
 					<p>
 						注意：<strong>凡事符合快速处理情形的交通事故，当事人都应当及时主动撤离现场。</strong>对于应当撤离而未撤离，造成交通堵塞的，高速公路交警部门将依法予以罚款200元。

@@ -52,8 +52,9 @@
 					<div class="weui-cell">
                         <div class="weui-cell__hd"><label class="weui-label">姓名</label></div>
                         <div class="weui-cell__bd">
-                            <input ng-model="jsyxx.name" name="jsyxxName{{$index}}" class="weui-input" type="text" placeholder="驾驶员姓名"
-								validator="required,maxlength=16">
+                            <input ng-model="jsyxx.name" name="jsyxxName{{$index}}" 
+								class="weui-input" type="text" placeholder="驾驶员姓名" 
+								validator="{{$index==0?'required,':''}}maxlength=16">
                         </div>
 						<div class="weui-cell__ft">
                             <i class="weui-icon-warn"></i>
@@ -62,8 +63,9 @@
     				<div class="weui-cell">
                         <div class="weui-cell__hd"><label class="weui-label">车辆号牌</label></div>
                         <div class="weui-cell__bd">
-                            <input ng-model="jsyxx.hphm" name="jsyxxHphm{{$index}}" class="weui-input" type="text" placeholder="输入车辆号牌"
-								validator="required,hphm">
+                            <input ng-model="jsyxx.hphm" name="jsyxxHphm{{$index}}" 
+								class="weui-input" type="text" placeholder="输入车辆号牌" 
+								validator="{{$index==0?'required,':''}}hphm">
                         </div>
 						<div class="weui-cell__ft">
                             <i class="weui-icon-warn"></i>
@@ -73,7 +75,7 @@
                         <div class="weui-cell__hd"><label class="weui-label">手机号码</label></div>
                         <div class="weui-cell__bd">
                             <input ng-model="jsyxx.contact" name="jsyxxContact{{$index}}" class="weui-input" type="tel" value="" placeholder="输入手机号"
-								validator="required,phone">
+								validator="{{$index==0?'required,':''}}phone">
                         </div>
 						<div class="weui-cell__ft">
                             <i class="weui-icon-warn"></i>
@@ -131,7 +133,7 @@
                                 </div>
                             </div>
                             <div class="weui-uploader__ft" 
-								ng-init="minXxtpNum=5">
+								ng-init="minXxtpNum=0">
 								<input ng-model="xxtps.length" type="hidden" name="xxtpNum" validator="min={{minXxtpNum}}"/>
 								<div class="weui-textarea-counter">
                                     <span style="float:left;">请至少上传<span ng-bind="minXxtpNum"></span>张图片
@@ -151,7 +153,7 @@
                     <div class="weui-cell__bd">
                         <input ng-model="info.duty" name="duty" class="weui-input" value="" 
 							placeholder="事故责任方" maxlength=32 
-							validator="required,maxlength=32">
+							validator="maxlength=32">
                     </div>
 					<div class="weui-cell__ft"> 
                         <i class="weui-icon-warn"></i>
@@ -160,7 +162,7 @@
             </div>
 			
 			<!-- 录音责任代码 start -->
-			<div class="weui-cells__title">事故描述+责任确认录音
+			<div class="weui-cells__title">事故经过简要陈述录音
 				<span class="weui-cells__ft union-btn" ng-init="editUploderVoice=false" ng-hide="editUploderVoice" 
 					ng-click="editUploderVoice=!editUploderVoice">
 					<span class="weui-icon-modify_sm"></span>编辑
@@ -203,7 +205,7 @@
                                 </div>
                             </div>
 							<div class="weui-uploader__ft" 
-								ng-init="minVoiceNum=1">
+								ng-init="minVoiceNum=0">
 								<input ng-model="voices.length" type="hidden" name="voiceNum" validator="min={{minVoiceNum}}"/>
 								<div class="weui-textarea-counter">
                                     <span style="float:left;">请至少上传<span ng-bind="minVoiceNum"></span>段录音</span>

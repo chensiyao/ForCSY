@@ -662,6 +662,7 @@ app.controller("myCtrl", function($scope, $state, $timeout, $interval, $http, $i
 			return $validationProvider.checkValid(!!form?form:undefined);
 		},
 		submit: function(info){
+			alert("请撤离现场与保险公司联系索赔。单方事故或对事故责任有异议的应立即报警。");
 			//禁止重复提交
 			if($scope.submitted || $scope.submitting) return;
 			
@@ -701,11 +702,9 @@ app.controller("myCtrl", function($scope, $state, $timeout, $interval, $http, $i
 						$scope.submitted = true;
 					}
 					$state.go("formRst", data);
-					console.log(data);
 				}).error(function(data,status,hedaers,config){
 					$scope.submitting = false;
 					$state.go("formRst",{errMsg:"系统异常! 错误代码:"+status});
-					console.log(data);
 				});
 			}else{
 				$validationProvider.validate($scope.registerForm);
